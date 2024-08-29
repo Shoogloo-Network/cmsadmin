@@ -47,7 +47,7 @@ Admin Create - Admin Panel
                     <h4 class="header-title">Create New Role</h4>
                     @include('backend.layouts.partials.messages')
                     
-                    <form action="{{ route('admin.admins.store') }}" method="POST">
+                    <form action="{{ route('admin.routes.store') }}" method="POST">
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
