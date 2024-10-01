@@ -23,7 +23,19 @@
                         </ul>
                     </li>
                     @endif
-
+                    @if ($usr->can('deal.create'))
+                    <li class="active">
+                        <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Deals</span></a>
+                        <ul class="collapse {{ Route::is('admin.deals.create') || Route::is('admin.deals.index') || Route::is('admin.deals.edit') || Route::is('admin.deals.show') ? 'in' : '' }}">
+                            @if ($usr->can('deal.view'))
+                                <li class="{{ Route::is('admin.deals.index')  || Route::is('admin.deals.edit') ? 'active' : '' }}"><a href="{{ route('admin.deals.index') }}">All Deals</a></li>
+                            @endif
+                            @if ($usr->can('deal.create'))
+                                <li class="{{ Route::is('admin.deals.create')  ? 'active' : '' }}"><a href="{{ route('admin.deals.create') }}">Create Deal</a></li>
+                            @endif
+                        </ul>
+                    </li>
+                    @endif
                     @if ($usr->can('role.create') || $usr->can('role.view') ||  $usr->can('role.edit') ||  $usr->can('role.delete'))
                     <li>
                         <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-tasks"></i><span>

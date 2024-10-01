@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\Action\DealsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,7 +32,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('users', 'Backend\UsersController', ['names' => 'admin.users']);
     Route::resource('admins', 'Backend\AdminsController', ['names' => 'admin.admins']);    
     Route::resource('routes', 'Backend\Action\JourneyController', ['names' => 'admin.routes']);
-    Route::post('/routes-store', 'Backend\Auth\JourneyController@store')->name('admin.routes.store');
+    Route::resource('deals', 'Backend\Action\DealsController', ['names' => 'admin.deals']);
+   // Route::post('/routes-store', 'Backend\Auth\JourneyController@store')->name('admin.routes.store');
+   Route::get('/get-options/{id}', [DealsController::class, 'getPagesbyId'])->name('get.options');
 
 
     // Login Routes
@@ -45,3 +48,4 @@ Route::group(['prefix' => 'admin'], function () {
     //Route::get('/password/reset', 'Backend\Auth\ForgetPasswordController@showLinkRequestForm')->name('admin.password.request');
     //Route::post('/password/reset/submit', 'Backend\Auth\ForgetPasswordController@reset')->name('admin.password.update');
 });
+

@@ -27,7 +27,7 @@ class JourneyController extends Controller
 
     public function index()
     {
-        if (is_null($this->user) || !$this->user->can('route.view')) {
+        if (is_null($this->user) || !$this->user->can('deal.view')) {
             abort(403, 'Sorry !! You are Unauthorized to view any admin !');
         }
 
@@ -57,7 +57,6 @@ class JourneyController extends Controller
         // Validate the request
         $request->validate([
             'domain' => 'required|integer',
-            'sites' => 'required|array',
             'status' => 'required|string|in:Yes,No',
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255',
@@ -97,14 +96,21 @@ class JourneyController extends Controller
                 // Move the file to the desired location within the public directory
                 $banner->move(public_path('assets/images/cttimg'), $bannerName);
             }
-            // Insert into orders table
-            $route = Route::create([
-                'name' => $request->name,
-                'slug'=> $request->slug,
-            ]);
+
+            $count = Route::where('slug', trim($request->slug))->first();
+           
+            if($count){
+                $rId = $count->id;
+            }else{
+                $route = Route::create([
+                    'name' => $request->name,
+                    'slug'=> $request->slug,
+                ]);
+                $rId = $route->id;
+            }
 
             RouteDetail::create([
-                'route_id' => $route->id,
+                'route_id' => $rId,
                 'domain_id' => $request->domain,
                 'banner' => $bannerName,
                 'logo' => $logoName,
@@ -140,15 +146,80 @@ class JourneyController extends Controller
         }
 
         $routeById = Route::find($Id);
-        return view('routes.edit', compact('routeById'));
+        $routeDetailsById = RouteDetail::where('route_id', $Id)->first();
+        return view('routes.edit', compact('routeById','routeDetailsById'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Routes $routes)
+    public function update(Request $request, $id)
     {
-        //
+        $route = Route::findOrFail($id); // Find the record by ID
+        $routeDetail = RouteDetail::where('route_id',$route->id)->firstOrFail();;
+
+        // Handle file uploads
+        $logoName = $routeDetail->logo;  // Existing logo name
+        $bannerName = $routeDetail->banner;  // Existing banner name
+
+        if ($request->hasFile('logo')) {
+            $request->validate([
+                'logo' => 'required|image|mimes:jpeg,png,jpg,gif|max:256', // Add file validation rules
+            ]);
+            
+            // Optional: Delete the old logo if it exists
+            if ($logoName) {
+                $oldLogoPath = public_path('assets/images/cttimg/' . $logoName);
+                if (file_exists($oldLogoPath)) {
+                    unlink($oldLogoPath);
+                }
+            }
+
+            $logo = $request->file('logo');  // Get the uploaded file instance
+            $logoName = time() . '_' . $logo->getClientOriginalName();  // Generate a unique filename        
+            $logo->move(public_path('assets/images/cttimg'), $logoName); // Move the file to the desired location
+        }
+
+        if ($request->hasFile('banner')) {
+            $request->validate([
+                'banner' => 'required|image|mimes:jpeg,png,jpg,gif|max:256', // Add file validation rules
+            ]);
+            
+            // Optional: Delete the old banner if it exists
+            if ($bannerName) {
+                $oldBannerPath = public_path('assets/images/cttimg/' . $bannerName);
+                if (file_exists($oldBannerPath)) {
+                    unlink($oldBannerPath);
+                }
+            }
+
+            $banner = $request->file('banner');  // Get the uploaded file instance
+            $bannerName = time() . '_' . $banner->getClientOriginalName();  // Generate a unique filename        
+            $banner->move(public_path('assets/images/cttimg'), $bannerName); // Move the file to the desired location
+        }
+
+        // Update the database with the new file names and other data
+        $route->update([
+            'name' => $request->input('name'),
+            'slug' => $request->input('slug'),
+        ]);
+
+        $routeDetail->update([
+            'domain_id' => $request->domain,
+            'banner' => $bannerName,
+            'logo' => $logoName,
+            'header'=> $request->heading,
+            'description'=> $request->desc,
+            'metatitle'=> $request->mtitle,
+            'metakeyword'=> $request->mkeyw,
+            'metadescription'=> $request->mdesc,
+            'status'=> $request->status,
+            'shortdesc'=> $request->sdesc,
+            'merchant_link'=> $request->link,
+        ]);
+
+        // Redirect or return response
+        return redirect()->route('admin.routes.index')->with('success', 'Route updated successfully');
     }
 
     /**

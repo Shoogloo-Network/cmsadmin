@@ -113,15 +113,9 @@ Route Create - Admin Panel
                             <div class="form-group col-md-12 col-sm-12">
                                 <label for="email">Description</label>
                                 <textarea class="form-control" id="content" name="desc" placeholder="Description"></textarea>
-                            </div> 
-                            <div class="form-group col-md-12 col-sm-12">
-                                <input type="hidden" name="ctt" value="0">  
-                                <input type="checkbox" name="ctt" value="1">CTT       
-                                <input type="hidden" name="stt" value="0">  
-                                <input type="checkbox" name="stt" value="1">STT  
-                            </div>        
+                            </div>       
                         </div>                  
-                        <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save Rute</button>
+                        <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save Route</button>
                     </form>
                 </div>
             </div>
