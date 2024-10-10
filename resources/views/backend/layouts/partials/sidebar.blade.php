@@ -23,6 +23,32 @@
                         </ul>
                     </li>
                     @endif
+                    @if ($usr->can('route.create'))
+                    <li class="active">
+                        <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Routes</span></a>
+                        <ul class="collapse {{ Route::is('admin.routes.create') || Route::is('admin.routes.index') || Route::is('admin.routes.edit') || Route::is('admin.routes.show') ? 'in' : '' }}">
+                            @if ($usr->can('route.view'))
+                                <li class="{{ Route::is('admin.routes.index')  || Route::is('admin.routes.edit') ? 'active' : '' }}"><a href="{{ route('admin.routes.index') }}">All Routes</a></li>
+                            @endif
+                            @if ($usr->can('route.create'))
+                                <li class="{{ Route::is('admin.routes.create')  ? 'active' : '' }}"><a href="{{ route('admin.routes.create') }}">Create Route</a></li>
+                            @endif
+                        </ul>
+                    </li>
+                    @endif
+                    @if ($usr->can('operator.create'))
+                    <li class="active">
+                        <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Operators</span></a>
+                        <ul class="collapse {{ Route::is('admin.operators.create') || Route::is('admin.operators.index') || Route::is('admin.operators.edit') || Route::is('admin.operators.show') ? 'in' : '' }}">
+                            @if ($usr->can('operator.view'))
+                                <li class="{{ Route::is('admin.operators.index')  || Route::is('admin.operators.edit') ? 'active' : '' }}"><a href="{{ route('admin.operators.index') }}">All Operators</a></li>
+                            @endif
+                            @if ($usr->can('operator.create'))
+                                <li class="{{ Route::is('admin.operators.create')  ? 'active' : '' }}"><a href="{{ route('admin.operators.create') }}">Create Operator</a></li>
+                            @endif
+                        </ul>
+                    </li>
+                    @endif
                     @if ($usr->can('deal.create'))
                     <li class="active">
                         <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Deals</span></a>
@@ -35,7 +61,7 @@
                             @endif
                         </ul>
                     </li>
-                    @endif
+                    @endif                    
                     @if ($usr->can('role.create') || $usr->can('role.view') ||  $usr->can('role.edit') ||  $usr->can('role.delete'))
                     <li>
                         <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-tasks"></i><span>
