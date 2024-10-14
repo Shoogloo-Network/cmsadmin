@@ -3,17 +3,6 @@
 use App\Http\Controllers\Backend\Action\DealsController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 // Route::get('/', function () {
 //     return view('welcome');
 // });
@@ -30,13 +19,12 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/', 'Backend\DashboardController@index')->name('admin.dashboard');
     Route::resource('roles', 'Backend\RolesController', ['names' => 'admin.roles']);
     Route::resource('users', 'Backend\UsersController', ['names' => 'admin.users']);
-    Route::resource('admins', 'Backend\AdminsController', ['names' => 'admin.admins']);    
+    Route::resource('admins', 'Backend\AdminsController', ['names' => 'admin.admins']);
     Route::resource('routes', 'Backend\Action\JourneyController', ['names' => 'admin.routes']);
     Route::resource('operators', 'Backend\Action\OperatorController', ['names' => 'admin.operators']);
     Route::resource('deals', 'Backend\Action\DealsController', ['names' => 'admin.deals']);
-   // Route::post('/routes-store', 'Backend\Auth\JourneyController@store')->name('admin.routes.store');
-   Route::get('/get-options/{id}', [DealsController::class, 'getPagesbyId'])->name('get.options');
-
+    Route::resource('cities', 'Backend\Action\CityController', ['names' => 'admin.cities']);
+    Route::get('/get-options/{id}', [DealsController::class, 'getPagesbyId'])->name('get.options');
 
     // Login Routes
     Route::get('/login', 'Backend\Auth\LoginController@showLoginForm')->name('admin.login');
@@ -49,5 +37,3 @@ Route::group(['prefix' => 'admin'], function () {
     //Route::get('/password/reset', 'Backend\Auth\ForgetPasswordController@showLinkRequestForm')->name('admin.password.request');
     //Route::post('/password/reset/submit', 'Backend\Auth\ForgetPasswordController@reset')->name('admin.password.update');
 });
-
-

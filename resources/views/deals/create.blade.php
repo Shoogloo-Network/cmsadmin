@@ -116,7 +116,7 @@ Deal Create - Admin Panel
 <script type="text/javascript">
     $(document).ready(function() {
         $('#domain').on('change', function() {
-            alert('xyz');
+            //alert('xyz');
             var id = $(this).val(); // Get selected value from the first dropdown
             if (id) {
                 $.ajax({
