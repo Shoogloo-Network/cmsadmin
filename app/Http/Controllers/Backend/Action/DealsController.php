@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Action;
 use App\Http\Controllers\Controller;
 use App\Models\Deal;
 use App\Models\Navbar;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
@@ -28,7 +29,8 @@ class DealsController extends Controller
             abort(403, 'Sorry !! You are Unauthorized to view any admin !');
         }
 
-        $deals = Deal::all();
+        $deals = Deal::where('status', '=', 'Yes')->where('expiry', '>=', Carbon::now())->orderBy('id', 'DESC')->get();
+
         return view('deals.index', compact('deals'));
     }
 
@@ -40,7 +42,7 @@ class DealsController extends Controller
         if (is_null($this->user) || !$this->user->can('deal.create')) {
             abort(403, 'Sorry !! You are Unauthorized to view any admin !');
         }
-        $roles  = Role::all();
+        $roles = Role::all();
         return view('deals.create', compact('roles'));
     }
 
@@ -49,6 +51,10 @@ class DealsController extends Controller
      */
     public function store(Request $request)
     {
+        if (is_null($this->user) || !$this->user->can('deal.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to admin !');
+        }
+
         // Validate the incoming request
         $request->validate([
             'domain' => 'required|string|max:255',
@@ -70,7 +76,7 @@ class DealsController extends Controller
         $deal->slug = trim($request->input('slug'));
         $deal->discount = $request->input('discount');
         $deal->discount_type = 'deal';
-        $deal->discount_teg = 'get deal';
+        $deal->discount_tag = 'get deal';
         $deal->expiry = $request->input('expiry');
         $deal->title = $request->input('title');
         $deal->description = $request->input('desc');
@@ -99,7 +105,7 @@ class DealsController extends Controller
 
         $dealById = Deal::find($id);
         $pages = Navbar::all();
-        return view('deals.edit', compact('dealById','pages'));
+        return view('deals.edit', compact('dealById', 'pages'));
     }
 
     /**
@@ -107,6 +113,10 @@ class DealsController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        if (is_null($this->user) || !$this->user->can('deal.edit')) {
+            abort(403, 'Sorry !! You are Unauthorized to update any Deals !');
+        }
+
         $deal = Deal::findOrFail($id); // Find the record by ID
         $deal->domain_id = $request->input('domain');
         $deal->page_id = $request->input('page');

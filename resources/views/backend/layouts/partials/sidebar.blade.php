@@ -68,7 +68,7 @@
                         </ul>
                     </li>
                     @endif
-                    @if ($usr->can('deal.create'))
+                    @if ($usr->can('deal.create') || $usr->can('deal.view') || $usr->can('deal.edit'))
                     <li class="active">
                         <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Deals</span></a>
                         <ul class="collapse {{ Route::is('admin.deals.create') || Route::is('admin.deals.index') || Route::is('admin.deals.edit') || Route::is('admin.deals.show') ? 'in' : '' }}">
