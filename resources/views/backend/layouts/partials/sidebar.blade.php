@@ -23,6 +23,25 @@
                         </ul>
                     </li>
                     @endif
+                    @if ($usr->can('city.create') || $usr->can('city.view') || $usr->can('city.edit') || $usr->can('city.delete'))
+                         <li>
+                             <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-user"></i><span>Cities</span></a>
+                             <ul
+                                 class="collapse {{ Route::is('admin.cities.create') || Route::is('admin.cities.index') || Route::is('admin.cities.edit') || Route::is('admin.cities.show') ? 'in' : '' }}">
+
+                                 @if ($usr->can('city.view'))
+                                     <li class="{{ Route::is('admin.cities.index') || Route::is('admin.cities.edit') ? 'active' : '' }}">
+                                         <a href="{{ route('admin.cities.index') }}">All Cities</a>
+                                     </li>
+                                 @endif
+
+                                 @if ($usr->can('city.create'))
+                                     <li class="{{ Route::is('admin.cities.create') ? 'active' : '' }}"><a
+                                             href="{{ route('admin.cities.create') }}">Create City</a></li>
+                                 @endif
+                             </ul>
+                         </li>
+                     @endif
                     @if ($usr->can('route.create'))
                     <li class="active">
                         <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Routes</span></a>
@@ -62,7 +81,7 @@
                         </ul>
                     </li>
                     @endif
-                    @if ($usr->can('deal.create'))
+                    @if ($usr->can('deal.create') || $usr->can('deal.view') || $usr->can('deal.edit'))
                     <li class="active">
                         <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Deals</span></a>
                         <ul class="collapse {{ Route::is('admin.deals.create') || Route::is('admin.deals.index') || Route::is('admin.deals.edit') || Route::is('admin.deals.show') ? 'in' : '' }}">
