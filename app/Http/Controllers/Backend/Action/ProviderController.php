@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Backend\Action;
 
 use App\Http\Controllers\Controller;
-use App\Models\Operator;
-use App\Models\OperatorDetail;
+use App\Models\Provider;
+use App\Models\ProviderDetail;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 
-class OperatorController extends Controller
+class ProviderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,12 +27,12 @@ class OperatorController extends Controller
 
     public function index()
     {
-        if (is_null($this->user) || !$this->user->can('operator.view')) {
+        if (is_null($this->user) || !$this->user->can('provider.view')) {
             abort(403, 'Sorry !! You are Unauthorized to view any admin !');
         }
 
-        $operators = Operator::all();
-        return view('operators.index', compact('operators'));
+        $providers = Provider::all();
+        return view('providers.index', compact('providers'));
     }
 
     /**
@@ -40,12 +40,12 @@ class OperatorController extends Controller
      */
     public function create()
     {        
-        if (is_null($this->user) || !$this->user->can('operator.create')) {
+        if (is_null($this->user) || !$this->user->can('provider.create')) {
             abort(403, 'Sorry !! You are Unauthorized to view any admin !');
         }
 
         $roles  = Role::all();
-        return view('operators.create', compact('roles'));
+        return view('providers.create', compact('roles'));
     }
 
     /**
@@ -83,7 +83,6 @@ class OperatorController extends Controller
             $logoName = null;
             $bannerName = null;
             $topbannerName = null;
-            $rightbannerName = null;
 
             if ($request->hasFile('logo')) {
                 $request->validate([
@@ -115,58 +114,47 @@ class OperatorController extends Controller
                 $topbanner->move(public_path('assets/images/cttimg'), $topbannerName);
             }
 
-            if ($request->hasFile('rightbanner')) {
-                $request->validate([
-                    'rightbanner' => 'required|image|mimes:jpeg,png,jpg,gif|max:256', // Add file validation rules
-                ]);
-                $rightbanner = $request->file('rightbanner');  // Get the uploaded file instance
-                $rightbannerName = time() . '_' . $rightbanner->getClientOriginalName();  // Generate a unique filename        
-                // Move the file to the desired location within the public directory
-                $rightbanner->move(public_path('assets/images/cttimg'), $rightbannerName);
-            }
-
-            $count = Operator::where('slug', trim($request->slug))->first();
+            $count = Provider::where('slug', trim($request->slug))->first();
            
             if($count){
                 $oId = $count->id;
             }else{
-                $operator = Operator::create([
+                $provider = Provider::create([
                     'country_id' => 29,
                     'name' => $request->name,
                     'slug'=> $request->slug,
+                    'type' => $request->type,
                 ]);
-                $oId = $operator->id;
+                $pId = $provider->id;
             }
 
-            OperatorDetail::create([
-                'operator_id' => $oId,
+            ProviderDetail::create([
+                'provider_id' => $pId,
                 'domain_id' => $request->domain,
-                'ota_type' => $request->type,
                 'banner' => $bannerName,
                 'logo' => $logoName,
                 'description'=> $request->desc,
                 'metatitle'=> $request->mtitle,
                 'metakeyword'=> $request->mkeyw,
                 'metadescription'=> $request->mdesc,
-                'status'=> $request->status,                
+                'status'=> $request->status,        
+                'topbanner_code' => $request->seating1,        
                 'topbanner_image' => $topbannerName,
-                'rightbanner_image' => $rightbannerName,
-                'shortdesc'=> $request->sdesc,
                 'rightbanner_code' => $request->seating2,
                 'search_right' => $request->seating3,
                 'merchant_link'=> $request->link,
-                'merchant_details' => $request->seating1,
-
+                'merchant_details' => $request->sdesc,
+                'video_link' => $request->heading,
             ]);
         });
 
-        return redirect()->route('admin.operators.index')->with('success', 'Operator created successfully.');
+        return redirect()->route('admin.providers.index')->with('success', 'Provider created successfully.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Operator $operators)
+    public function show(Provider $providers)
     {
         //
     }
@@ -176,13 +164,13 @@ class OperatorController extends Controller
      */
     public function edit(int $Id)
     {
-        if (is_null($this->user) || !$this->user->can('operator.edit')) {
+        if (is_null($this->user) || !$this->user->can('provider.edit')) {
             abort(403, 'Sorry !! You are Unauthorized to edit any admin !');
         }
 
-        $operatorById = Operator::find($Id);
-        $operatorDetailsById = OperatorDetail::where('operator_id', $Id)->first();
-        return view('operators.edit', compact('operatorById','operatorDetailsById'));
+        $providerById = Provider::find($Id);
+        $providerDetailsById = ProviderDetail::where('provider_id', $Id)->first();
+        return view('providers.edit', compact('providerById','providerDetailsById'));
     }
 
     /**
@@ -190,14 +178,14 @@ class OperatorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $operator = Operator::findOrFail($id); // Find the record by ID
-        $operatorDetail = OperatorDetail::where('operator_id',$operator->id)->firstOrFail();;
+        $provider = Provider::findOrFail($id); // Find the record by ID
+        $providerDetail = ProviderDetail::where('provider_id',$provider->id)->firstOrFail();;
 
         // Handle file uploads
-        $logoName = $operatorDetail->logo;  // Existing logo name
-        $bannerName = $operatorDetail->banner;  // Existing banner name
-        $topbannerName = $operatorDetail->topbanner_image;
-        $rightbannerName = $operatorDetail->rightbanner_image;
+        $logoName = $providerDetail->logo;  // Existing logo name
+        $bannerName = $providerDetail->banner;  // Existing banner name
+        $topbannerName = $providerDetail->topbanner_image;
+        dd($topbannerName);
 
         if ($request->hasFile('logo')) {
             $request->validate([
@@ -253,56 +241,41 @@ class OperatorController extends Controller
             $topbanner->move(public_path('assets/images/cttimg'), $topbannerName); // Move the file to the desired location
         }
 
-        if ($request->hasFile('rightbanner')) {
-            $request->validate([
-                'rightbanner' => 'required|image|mimes:jpeg,png,jpg,gif|max:256', // Add file validation rules
-            ]);
-            
-            // Optional: Delete the old banner if it exists
-            if ($rightbannerName) {
-                $oldBannerPath = public_path('assets/images/cttimg/' . $rightbannerName);
-                if (file_exists($oldBannerPath)) {
-                    unlink($oldBannerPath);
-                }
-            }
-
-            $rightbanner = $request->file('rightbanner');  // Get the uploaded file instance
-            $rightbannerName = time() . '_' . $rightbanner->getClientOriginalName();  // Generate a unique filename        
-            $rightbanner->move(public_path('assets/images/cttimg'), $rightbannerName); // Move the file to the desired location
-        }
+       
 
         // Update the database with the new file names and other data
-        $operator->update([
-            'name' => $request->input('name'),
-            'slug' => $request->input('slug'),
+        $provider->update([
+            'name' => $request->name,
+            'slug' => $request->slug,
+            'type' => $request->type,
         ]);
 
-        $operatorDetail->update([
+        $providerDetail->update([
             'domain_id' => $request->domain,
-            'ota_type' => $request->type,
             'banner' => $bannerName,
             'logo' => $logoName,
             'description'=> $request->desc,
             'metatitle'=> $request->mtitle,
             'metakeyword'=> $request->mkeyw,
             'metadescription'=> $request->mdesc,
-            'status'=> $request->status,'topbanner_image' => $topbannerName,
-            'rightbanner_image' => $rightbannerName,
-            'shortdesc'=> $request->sdesc,
+            'status'=> $request->status,        
+            'topbanner_code' => $request->seating1,        
+            'topbanner_image' => $topbannerName,
             'rightbanner_code' => $request->seating2,
             'search_right' => $request->seating3,
-            'merchant_link'=> $request->link,            
-            'merchant_details' => $request->seating1,
+            'merchant_link'=> $request->link,
+            'merchant_details' => $request->sdesc,
+            'video_link' => $request->heading,        
         ]);
 
         // Redirect or return response
-        return redirect()->route('admin.operators.index')->with('success', 'Operator updated successfully');
+        return redirect()->route('admin.providers.index')->with('success', 'Provider updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Operator $operators)
+    public function destroy(Provider $providers)
     {
         //
     }

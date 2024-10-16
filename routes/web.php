@@ -33,6 +33,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('admins', 'Backend\AdminsController', ['names' => 'admin.admins']);    
     Route::resource('routes', 'Backend\Action\JourneyController', ['names' => 'admin.routes']);
     Route::resource('operators', 'Backend\Action\OperatorController', ['names' => 'admin.operators']);
+    Route::resource('providers', 'Backend\Action\ProviderController', ['names' => 'admin.providers']);
     Route::resource('deals', 'Backend\Action\DealsController', ['names' => 'admin.deals']);
    // Route::post('/routes-store', 'Backend\Auth\JourneyController@store')->name('admin.routes.store');
    Route::get('/get-options/{id}', [DealsController::class, 'getPagesbyId'])->name('get.options');

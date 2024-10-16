@@ -49,6 +49,19 @@
                         </ul>
                     </li>
                     @endif
+                    @if ($usr->can('provider.create'))
+                    <li class="active">
+                        <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Provider</span></a>
+                        <ul class="collapse {{ Route::is('admin.providers.create') || Route::is('admin.providers.index') || Route::is('admin.providers.edit') || Route::is('admin.providers.show') ? 'in' : '' }}">
+                            @if ($usr->can('provider.view'))
+                                <li class="{{ Route::is('admin.providers.index')  || Route::is('admin.providers.edit') ? 'active' : '' }}"><a href="{{ route('admin.providers.index') }}">All Providers</a></li>
+                            @endif
+                            @if ($usr->can('provider.create'))
+                                <li class="{{ Route::is('admin.providers.create')  ? 'active' : '' }}"><a href="{{ route('admin.providers.create') }}">Create Operator</a></li>
+                            @endif
+                        </ul>
+                    </li>
+                    @endif
                     @if ($usr->can('deal.create'))
                     <li class="active">
                         <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Deals</span></a>
