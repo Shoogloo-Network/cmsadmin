@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\Action\CitymapController;
 use App\Http\Controllers\Backend\Action\DealsController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,14 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('deals', 'Backend\Action\DealsController', ['names' => 'admin.deals']);
     Route::resource('cities', 'Backend\Action\CityController', ['names' => 'admin.cities']);
     Route::get('/get-options/{id}', [DealsController::class, 'getPagesbyId'])->name('get.options');
+
+    //Populars Routes mapping with city
+    Route::get('/citymap', [CitymapController::class, 'getPopularRoutes'])->name('admin.citymap.index');
+    Route::post('/citymap', [CitymapController::class, 'storePopularRoute'])->name('admin.citymap.store');
+    Route::get('/citymap/create', [CitymapController::class, 'createPopularRoute'])->name('admin.citymap.create');
+    Route::put('/citymap/{citymap}', [CitymapController::class, 'updatePopularRoute'])->name('admin.citymap.update');
+    Route::get('/citymap/{citymap}/edit', [CitymapController::class, 'editPopularRoute'])->name('admin.citymap.edit');
+    //Route::get('/citymap/{citymap}', [CitymapController::class, 'getPopularRoutes'])->name('admin.citymap.show');
 
     // Login Routes
     Route::get('/login', 'Backend\Auth\LoginController@showLoginForm')->name('admin.login');
