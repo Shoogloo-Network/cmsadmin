@@ -24,7 +24,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('operators', 'Backend\Action\OperatorController', ['names' => 'admin.operators']);
     Route::resource('providers', 'Backend\Action\ProviderController', ['names' => 'admin.providers']);
     Route::resource('deals', 'Backend\Action\DealsController', ['names' => 'admin.deals']);
+    Route::resource('faqs', 'Backend\Action\FaqsController', ['names' => 'admin.faqs']);
     Route::resource('cities', 'Backend\Action\CityController', ['names' => 'admin.cities']);
+    Route::resource('countries', 'Backend\Action\CountryController', ['names' => 'admin.countries']);
     Route::get('/get-options/{id}', [DealsController::class, 'getPagesbyId'])->name('get.options');
 
     // Login Routes

@@ -21,10 +21,10 @@ Admins - Admin Panel
     <div class="row align-items-center">
         <div class="col-sm-6">
             <div class="breadcrumbs-area clearfix">
-                <h4 class="page-title pull-left">Deals</h4>
+                <h4 class="page-title pull-left">Faqs</h4>
                 <ul class="breadcrumbs pull-left">
                     <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li><span>All Deals</span></li>
+                    <li><span>All Faqs</span></li>
                 </ul>
             </div>
         </div>
@@ -41,10 +41,10 @@ Admins - Admin Panel
         <div class="col-12 mt-5">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="header-title float-left">Deals List</h4>
+                    <h4 class="header-title float-left">Faqs List</h4>
                     <p class="float-right mb-2">
-                        @if (Auth::guard('admin')->user()->can('deal.create'))
-                            <a class="btn btn-primary text-white" href="{{ route('admin.deals.create') }}">Create New</a>
+                        @if (Auth::guard('admin')->user()->can('faq.create'))
+                            <a class="btn btn-primary text-white" href="{{ route('admin.faqs.create') }}">Create New</a>
                         @endif
                     </p>
                     <div class="clearfix"></div>
@@ -55,21 +55,21 @@ Admins - Admin Panel
                                 <tr>
                                     <th width="5%">Sl</th>
                                     <th width="50%">Title</th>
-                                    <th width="10%">Slug</th>
-                                    <th width="15%">Expiry</th>
+                                    <th width="15%">Slug</th>
+                                    <th width="10%">Order</th>
                                     <th width="10%">Status</th>
                                     <th width="10%">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach ($deals as $deal)
+                            @foreach ($faqs as $faq)
                                <tr>
                                     <td>{{ $loop->index+1 }}</td>
-                                    <td>{{ $deal->title }}</td>
-                                    <td>{{ $deal->slug }}</td>
-                                    <td>{{ $deal->expiry }}</td>
-                                    <td>{{ $deal->status }}</td>
-                                    <td><a class="btn btn-success text-white" href="{{ route('admin.deals.edit', $deal->id) }}">Edit</a></td>
+                                    <td>{{ $faq->title }}</td>
+                                    <td>{{ $faq->slug }}</td>
+                                    <td>{{ $faq->order }}</td>
+                                    <td>{{ $faq->status }}</td>
+                                    <td><a class="btn btn-success text-white" href="{{ route('admin.faqs.edit', $faq->id) }}">Edit</a></td>
                                 </tr>
                                @endforeach
                             </tbody>

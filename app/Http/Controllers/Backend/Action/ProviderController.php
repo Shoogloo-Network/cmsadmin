@@ -179,13 +179,13 @@ class ProviderController extends Controller
     public function update(Request $request, $id)
     {
         $provider = Provider::findOrFail($id); // Find the record by ID
-        $providerDetail = ProviderDetail::where('provider_id',$provider->id)->firstOrFail();;
+        $providerDetail = ProviderDetail::where('provider_id',$provider->id)->firstOrFail();
 
         // Handle file uploads
         $logoName = $providerDetail->logo;  // Existing logo name
         $bannerName = $providerDetail->banner;  // Existing banner name
         $topbannerName = $providerDetail->topbanner_image;
-        dd($topbannerName);
+    
 
         if ($request->hasFile('logo')) {
             $request->validate([

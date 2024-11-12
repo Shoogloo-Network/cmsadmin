@@ -16,13 +16,32 @@
                 <ul class="metismenu" id="menu">
 
                     @if ($usr->can('dashboard.view'))
-                    <li class="active">
+                    <li>
                         <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>dashboard</span></a>
                         <ul class="collapse">
                             <li class="{{ Route::is('admin.dashboard') ? 'active' : '' }}"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                         </ul>
                     </li>
                     @endif
+                    @if ($usr->can('country.create') || $usr->can('country.view') || $usr->can('country.edit') || $usr->can('country.delete'))
+                         <li>
+                             <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-user"></i><span>Countries</span></a>
+                             <ul
+                                 class="collapse {{ Route::is('admin.countries.create') || Route::is('admin.countries.index') || Route::is('admin.countries.edit') || Route::is('admin.countries.show') ? 'in' : '' }}">
+
+                                 @if ($usr->can('country.view'))
+                                     <li class="{{ Route::is('admin.countries.index') || Route::is('admin.countries.edit') ? 'active' : '' }}">
+                                         <a href="{{ route('admin.countries.index') }}">All Countries</a>
+                                     </li>
+                                 @endif
+
+                                 @if ($usr->can('country.create'))
+                                     <li class="{{ Route::is('admin.countries.create') ? 'active' : '' }}"><a
+                                             href="{{ route('admin.countries.create') }}">Create Country</a></li>
+                                 @endif
+                             </ul>
+                         </li>
+                     @endif
                     @if ($usr->can('city.create') || $usr->can('city.view') || $usr->can('city.edit') || $usr->can('city.delete'))
                          <li>
                              <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-user"></i><span>Cities</span></a>
@@ -43,7 +62,7 @@
                          </li>
                      @endif
                     @if ($usr->can('route.create'))
-                    <li class="active">
+                    <li>
                         <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Routes</span></a>
                         <ul class="collapse {{ Route::is('admin.routes.create') || Route::is('admin.routes.index') || Route::is('admin.routes.edit') || Route::is('admin.routes.show') ? 'in' : '' }}">
                             @if ($usr->can('route.view'))
@@ -56,7 +75,7 @@
                     </li>
                     @endif
                     @if ($usr->can('operator.create'))
-                    <li class="active">
+                    <li>
                         <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Operators</span></a>
                         <ul class="collapse {{ Route::is('admin.operators.create') || Route::is('admin.operators.index') || Route::is('admin.operators.edit') || Route::is('admin.operators.show') ? 'in' : '' }}">
                             @if ($usr->can('operator.view'))
@@ -69,7 +88,7 @@
                     </li>
                     @endif
                     @if ($usr->can('provider.create'))
-                    <li class="active">
+                    <li>
                         <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Provider</span></a>
                         <ul class="collapse {{ Route::is('admin.providers.create') || Route::is('admin.providers.index') || Route::is('admin.providers.edit') || Route::is('admin.providers.show') ? 'in' : '' }}">
                             @if ($usr->can('provider.view'))
@@ -82,7 +101,7 @@
                     </li>
                     @endif
                     @if ($usr->can('deal.create') || $usr->can('deal.view') || $usr->can('deal.edit'))
-                    <li class="active">
+                    <li>
                         <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Deals</span></a>
                         <ul class="collapse {{ Route::is('admin.deals.create') || Route::is('admin.deals.index') || Route::is('admin.deals.edit') || Route::is('admin.deals.show') ? 'in' : '' }}">
                             @if ($usr->can('deal.view'))
