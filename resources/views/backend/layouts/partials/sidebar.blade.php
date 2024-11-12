@@ -6,7 +6,7 @@
     <div class="sidebar-header">
         <div class="logo">
             <a href="{{ route('admin.dashboard') }}">
-                <h2 class="text-white">Admin</h2> 
+                <h2 class="text-white">Admin</h2>
             </a>
         </div>
     </div>
@@ -23,26 +23,7 @@
                         </ul>
                     </li>
                     @endif
-                    @if ($usr->can('country.create') || $usr->can('country.view') || $usr->can('country.edit') || $usr->can('country.delete'))
-                         <li>
-                             <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-user"></i><span>Countries</span></a>
-                             <ul
-                                 class="collapse {{ Route::is('admin.countries.create') || Route::is('admin.countries.index') || Route::is('admin.countries.edit') || Route::is('admin.countries.show') ? 'in' : '' }}">
-
-                                 @if ($usr->can('country.view'))
-                                     <li class="{{ Route::is('admin.countries.index') || Route::is('admin.countries.edit') ? 'active' : '' }}">
-                                         <a href="{{ route('admin.countries.index') }}">All Countries</a>
-                                     </li>
-                                 @endif
-
-                                 @if ($usr->can('country.create'))
-                                     <li class="{{ Route::is('admin.countries.create') ? 'active' : '' }}"><a
-                                             href="{{ route('admin.countries.create') }}">Create Country</a></li>
-                                 @endif
-                             </ul>
-                         </li>
-                     @endif
-                    @if ($usr->can('city.create') || $usr->can('city.view') || $usr->can('city.edit') || $usr->can('city.delete'))
+                    @if ($usr->can('city.create') || $usr->can('city.view') || $usr->can('city.edit') || $usr->can('citymap.view') || $usr->can('citymap.create'))
                          <li>
                              <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-user"></i><span>Cities</span></a>
                              <ul
@@ -58,6 +39,26 @@
                                      <li class="{{ Route::is('admin.cities.create') ? 'active' : '' }}"><a
                                              href="{{ route('admin.cities.create') }}">Create City</a></li>
                                  @endif
+
+                                 @if ($usr->can('city.view'))
+                                     <li class="{{ Route::is('admin.citymap.index') ? 'active' : '' }}"><a
+                                             href="{{ route('admin.citymap.index') }}">Popular Routes</a></li>
+                                 @endif
+
+                                 @if ($usr->can('city.create'))
+                                     <li class="{{ Route::is('admin.citymap.create') ? 'active' : '' }}"><a
+                                             href="{{ route('admin.citymap.create') }}">Attractions</a></li>
+                                 @endif
+
+                                 {{-- @if ($usr->can('city.getAttractions'))
+                                     <li class="{{ Route::is('admin.citymap.attractions') ? 'active' : '' }}"><a
+                                             href="{{ route('admin.citymap.attractions') }}">Attractions</a></li>
+                                 @endif
+
+                                 @if ($usr->can('city.createAttraction'))
+                                     <li class="{{ Route::is('admin.citymap.createattraction') ? 'active' : '' }}"><a
+                                             href="{{ route('admin.citymap.createattraction') }}">Attractions</a></li>
+                                 @endif --}}
                              </ul>
                          </li>
                      @endif
@@ -112,7 +113,7 @@
                             @endif
                         </ul>
                     </li>
-                    @endif                    
+                    @endif
                     @if ($usr->can('role.create') || $usr->can('role.view') ||  $usr->can('role.edit') ||  $usr->can('role.delete'))
                     <li>
                         <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-tasks"></i><span>
@@ -129,14 +130,14 @@
                     </li>
                     @endif
 
-                    
+
                     @if ($usr->can('admin.create') || $usr->can('admin.view') ||  $usr->can('admin.edit') ||  $usr->can('admin.delete'))
                     <li>
                         <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-user"></i><span>
                             Admins
                         </span></a>
                         <ul class="collapse {{ Route::is('admin.admins.create') || Route::is('admin.admins.index') || Route::is('admin.admins.edit') || Route::is('admin.admins.show') ? 'in' : '' }}">
-                            
+
                             @if ($usr->can('admin.view'))
                                 <li class="{{ Route::is('admin.admins.index')  || Route::is('admin.admins.edit') ? 'active' : '' }}"><a href="{{ route('admin.admins.index') }}">All Admins</a></li>
                             @endif

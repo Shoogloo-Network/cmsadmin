@@ -1,5 +1,5 @@
 <!-- header area start -->
-<div class="header-area">
+{{-- <div class="header-area">
     <div class="row align-items-center">
         <!-- nav and search button -->
         <div class="col-md-6 col-sm-8 clearfix">
@@ -71,5 +71,5 @@
             </ul>
         </div>
     </div>
-</div>
+</div> --}}
 <!-- header area end -->
