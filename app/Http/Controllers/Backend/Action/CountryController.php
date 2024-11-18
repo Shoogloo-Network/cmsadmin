@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Country;
 use App\Models\Countrydetail;
 use App\User;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -151,8 +152,8 @@ class CountryController extends Controller
         if (is_null($this->user) || !$this->user->can('country.edit')) {
             abort(403, 'Sorry !! You are Unauthorized to edit any admin !');
         }
-        $country = Country::find($id);
-        $countryDetail = $country->countryDetail()->where('domain_id', '=', 6000008)->where('country_id', '=', $country->id)->first();
+        $country = Country::find($id);        
+        $countryDetail = $country->countryDetail()->where('domain_id', '=', 6000008)->first();
         $roles = Role::all();
         return view('backend.pages.countries.edit', compact('country',  'countryDetail', 'roles'));
     }
@@ -182,8 +183,6 @@ class CountryController extends Controller
             'code' => 'required|string',
             'order' => 'nullable|integer',
             'slug' => 'required|string|max:255',
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'banner' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'header' => 'required|string',
             'link' => 'nullable|string',
             'metatitle' => 'nullable|string',
@@ -194,13 +193,13 @@ class CountryController extends Controller
         ]);
 
         $country = Country::find($id);
-        $countryDetail = $country->countryDetail()->where('country_id', $country->id)->firstOrFail();
+        $countryDetail = $country->countryDetail()->where('domain_id', '=', 6000008)->firstOrFail();
 
         $logoName = $countryDetail->logo;  // Existing logo name
         $bannerName = $countryDetail->banner;  // Existing banner name
-    
 
         if ($request->hasFile('logo')) {
+            
             $request->validate([
                 'logo' => 'required|image|mimes:jpeg,png,jpg,gif|max:256', // Add file validation rules
             ]);
@@ -214,9 +213,10 @@ class CountryController extends Controller
             }
 
             $logo = $request->file('logo');  // Get the uploaded file instance
-            $logoName = time() . '_' . $logo->getClientOriginalName();  // Generate a unique filename        
+            $logoName = time() . '_' . $logo->getClientOriginalName();  // Generate a unique filename                    
             $logo->move(public_path('assets/images/cttimg'), $logoName); // Move the file to the desired location
         }
+
 
         if ($request->hasFile('banner')) {
             $request->validate([
@@ -235,9 +235,7 @@ class CountryController extends Controller
             $bannerName = time() . '_' . $banner->getClientOriginalName();  // Generate a unique filename        
             $banner->move(public_path('assets/images/cttimg'), $bannerName); // Move the file to the desired location
         }
-
-      
-       
+        
         $country->update([
             'name' => $request->name,
             'slug' => $request->slug,
@@ -245,10 +243,9 @@ class CountryController extends Controller
             'shortcode' => $request->code,
             'status' => $request->status,
         ]);
-
+    
         $countryDetail->update([
                 'country_id' => $country->id,
-                'domain_id' => $request->domain,
                 'banner' => $bannerName,
                 'logo' => $logoName,
                 'header' => $request->header,

@@ -44,7 +44,7 @@
                         <h4 class="header-title">Edit Country - {{ $country->name }}</h4>
                         @include('backend.layouts.partials.messages')
 
-                        <form action="{{ route('admin.countries.update', $country->id) }}" method="POST">
+                        <form action="{{ route('admin.countries.update', $country->id) }}" method="POST" enctype="multipart/form-data"> 
                             @method('PUT')
                             @csrf
                         <div class="form-row">

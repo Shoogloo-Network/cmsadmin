@@ -103,13 +103,26 @@
                     @endif
                     @if ($usr->can('deal.create') || $usr->can('deal.view') || $usr->can('deal.edit'))
                     <li>
-                        <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Deals</span></a>
+                        <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Faqs</span></a>
                         <ul class="collapse {{ Route::is('admin.deals.create') || Route::is('admin.deals.index') || Route::is('admin.deals.edit') || Route::is('admin.deals.show') ? 'in' : '' }}">
                             @if ($usr->can('deal.view'))
-                                <li class="{{ Route::is('admin.deals.index')  || Route::is('admin.deals.edit') ? 'active' : '' }}"><a href="{{ route('admin.deals.index') }}">All Deals</a></li>
+                                <li class="{{ Route::is('admin.deals.index')  || Route::is('admin.deals.edit') ? 'active' : '' }}"><a href="{{ route('admin.deals.index') }}">All Faqs</a></li>
                             @endif
                             @if ($usr->can('deal.create'))
-                                <li class="{{ Route::is('admin.deals.create')  ? 'active' : '' }}"><a href="{{ route('admin.deals.create') }}">Create Deal</a></li>
+                                <li class="{{ Route::is('admin.deals.create')  ? 'active' : '' }}"><a href="{{ route('admin.deals.create') }}">Create Faq</a></li>
+                            @endif
+                        </ul>
+                    </li>
+                    @endif
+                    @if ($usr->can('faq.create') || $usr->can('faq.view') || $usr->can('faq.edit'))
+                    <li>
+                        <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Deals</span></a>
+                        <ul class="collapse {{ Route::is('admin.faqs.create') || Route::is('admin.faqs.index') || Route::is('admin.faqs.edit') || Route::is('admin.faqs.show') ? 'in' : '' }}">
+                            @if ($usr->can('faq.view'))
+                                <li class="{{ Route::is('admin.faqs.index')  || Route::is('admin.faqs.edit') ? 'active' : '' }}"><a href="{{ route('admin.faqs.index') }}">All Deals</a></li>
+                            @endif
+                            @if ($usr->can('faq.create'))
+                                <li class="{{ Route::is('admin.faqs.create')  ? 'active' : '' }}"><a href="{{ route('admin.faqs.create') }}">Create Deal</a></li>
                             @endif
                         </ul>
                     </li>
