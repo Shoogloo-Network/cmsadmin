@@ -101,6 +101,19 @@
                         </ul>
                     </li>
                     @endif
+                    @if ($usr->can('ferry.create'))
+                    <li>
+                        <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Ferry</span></a>
+                        <ul class="collapse {{ Route::is('admin.ferries.create') || Route::is('admin.ferries.index') || Route::is('admin.ferries.edit') || Route::is('admin.ferries.show') ? 'in' : '' }}">
+                            @if ($usr->can('ferry.view'))
+                                <li class="{{ Route::is('admin.ferries.index')  || Route::is('admin.ferries.edit') ? 'active' : '' }}"><a href="{{ route('admin.ferries.index') }}">All Ferries</a></li>
+                            @endif
+                            @if ($usr->can('ferry.create'))
+                                <li class="{{ Route::is('admin.ferries.create')  ? 'active' : '' }}"><a href="{{ route('admin.ferries.create') }}">Create Operator</a></li>
+                            @endif
+                        </ul>
+                    </li>
+                    @endif
                     @if ($usr->can('deal.create') || $usr->can('deal.view') || $usr->can('deal.edit'))
                     <li>
                         <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Faqs</span></a>
@@ -114,7 +127,7 @@
                         </ul>
                     </li>
                     @endif
-                    @if ($usr->can('faq.create') || $usr->can('faq.view') || $usr->can('faq.edit'))
+                    @if ($usr->can('faq.create') || $usr->can(abilities: 'faq.view') || $usr->can('faq.edit'))
                     <li>
                         <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Deals</span></a>
                         <ul class="collapse {{ Route::is('admin.faqs.create') || Route::is('admin.faqs.index') || Route::is('admin.faqs.edit') || Route::is('admin.faqs.show') ? 'in' : '' }}">

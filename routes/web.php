@@ -28,6 +28,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('faqs', 'Backend\Action\FaqsController', ['names' => 'admin.faqs']);
     Route::resource('cities', 'Backend\Action\CityController', ['names' => 'admin.cities']);
     Route::resource('countries', 'Backend\Action\CountryController', ['names' => 'admin.countries']);
+    Route::resource('ferries', 'Backend\Action\FerryController', ['names' => 'admin.ferries']);
     Route::get('/get-options/{id}', [DealsController::class, 'getPagesbyId'])->name('get.options');
 
     //Populars Routes mapping with city
