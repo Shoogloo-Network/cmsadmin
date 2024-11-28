@@ -65,7 +65,7 @@ class RailcardController extends Controller
             'topbanner' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'topmbanner' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'heading' => 'nullable|string|max:255',
-            'link' => 'nullable|url',
+            //'link' => 'nullable|url',
             'mtitle' => 'nullable|string|max:255',
             'mdesc' => 'nullable|string|max:255',
             'mkeyw' => 'nullable|string|max:255',
@@ -146,7 +146,7 @@ class RailcardController extends Controller
                 'metakeyword'=> $request->mkeyw,
                 'metadescription'=> $request->mdesc,
                 'status'=> $request->status,      
-                'merchant_link'=> $request->link,
+                //'merchant_link'=> $request->link,
                 'mob_herobanner' => $topmbannerName,
                 'shortdesc' => $request->sdesc,
             ]);
@@ -282,7 +282,7 @@ class RailcardController extends Controller
             'metakeyword'=> $request->mkeyw,
             'metadescription'=> $request->mdesc,
             'status'=> $request->status,      
-            'merchant_link'=> $request->link,
+            //'merchant_link'=> $request->link,
             'mob_herobanner' => $topmbannerName,
             'shortdesc' => $request->sdesc,     
         ]);

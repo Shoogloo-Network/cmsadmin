@@ -47,7 +47,7 @@ Railcard Edit - Admin Panel
                     <h4 class="header-title">Edit Railcard</h4>
                     @include('backend.layouts.partials.messages')
                     
-                    <form action="{{ route('admin.ferries.update', $railcardById->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.railcards.update', $railcardById->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf <!-- CSRF token for security -->
                          @method('PUT') <!-- Use PUT or PATCH for updating resources -->
                         <div class="form-row">

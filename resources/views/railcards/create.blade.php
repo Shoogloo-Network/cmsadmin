@@ -47,7 +47,7 @@ Railcard Create - Admin Panel
                     <h4 class="header-title">Create New Railcard</h4>
                     @include('backend.layouts.partials.messages')
                     
-                    <form action="{{ route('admin.ferries.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.railcards.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">

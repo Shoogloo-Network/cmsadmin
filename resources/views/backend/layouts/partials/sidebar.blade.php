@@ -61,7 +61,7 @@
                                  @endif --}}
                              </ul>
                          </li>
-                     @endif
+                    @endif
                     @if ($usr->can('route.create'))
                     <li>
                         <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Routes</span></a>
@@ -110,6 +110,19 @@
                             @endif
                             @if ($usr->can('ferry.create'))
                                 <li class="{{ Route::is('admin.ferries.create')  ? 'active' : '' }}"><a href="{{ route('admin.ferries.create') }}">Create Operator</a></li>
+                            @endif
+                        </ul>
+                    </li>
+                    @endif
+                    @if ($usr->can('railcard.create'))
+                    <li>
+                        <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Railcard</span></a>
+                        <ul class="collapse {{ Route::is('admin.railcards.create') || Route::is('admin.railcards.index') || Route::is('admin.railcards.edit') || Route::is('admin.railcards.show') ? 'in' : '' }}">
+                            @if ($usr->can('railcard.view'))
+                                <li class="{{ Route::is('admin.railcards.index')  || Route::is('admin.railcards.edit') ? 'active' : '' }}"><a href="{{ route('admin.railcards.index') }}">All Railcards</a></li>
+                            @endif
+                            @if ($usr->can('railcard.create'))
+                                <li class="{{ Route::is('admin.railcards.create')  ? 'active' : '' }}"><a href="{{ route('admin.railcards.create') }}">Create Railcard</a></li>
                             @endif
                         </ul>
                     </li>
