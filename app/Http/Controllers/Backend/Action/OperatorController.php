@@ -84,6 +84,8 @@ class OperatorController extends Controller
             $bannerName = null;
             $topbannerName = null;
             $rightbannerName = null;
+            $ctt = 0;
+            $stt = 0;
 
             if ($request->hasFile('logo')) {
                 $request->validate([
@@ -126,7 +128,13 @@ class OperatorController extends Controller
             }
 
             $count = Operator::where('slug', trim($request->slug))->first();
-           
+
+            if($request->domain == 6000008){
+                $ctt = 1;
+            }elseif($request->domain == 6000010){    
+                $stt = 1;
+            }
+
             if($count){
                 $oId = $count->id;
             }else{
@@ -134,6 +142,8 @@ class OperatorController extends Controller
                     'country_id' => 29,
                     'name' => $request->name,
                     'slug'=> $request->slug,
+                    'ctt'=>$ctt,
+                    'stt'=>$stt,
                 ]);
                 $oId = $operator->id;
             }

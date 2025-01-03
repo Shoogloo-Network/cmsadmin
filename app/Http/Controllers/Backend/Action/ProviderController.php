@@ -83,6 +83,8 @@ class ProviderController extends Controller
             $logoName = null;
             $bannerName = null;
             $topbannerName = null;
+            $ctt = 0;
+            $stt = 0;
 
             if ($request->hasFile('logo')) {
                 $request->validate([
@@ -115,7 +117,13 @@ class ProviderController extends Controller
             }
 
             $count = Provider::where('slug', trim($request->slug))->first();
-           
+
+            if($request->domain == 6000008){
+                $ctt = 1;
+            }elseif($request->domain == 6000010){    
+                $stt = 1;
+            }
+
             if($count){
                 $oId = $count->id;
             }else{
@@ -124,6 +132,8 @@ class ProviderController extends Controller
                     'name' => $request->name,
                     'slug'=> $request->slug,
                     'type' => $request->type,
+                    'ctt'=>$ctt,
+                    'stt'=>$stt,
                 ]);
                 $pId = $provider->id;
             }

@@ -119,13 +119,13 @@
                         <div class="form-row">
                             <div class="form-group col-md-12 col-sm-12">
                                 <label for="shortdescription">Short Description</label>
-                                <input type="textarea" class="form-control" id="shortdesc" name="shortdesc" placeholder="short description" autocomplete="off">
+                                <textarea class="form-control" id="froala-editor" name="shortdesc" placeholder="short description">{{ ($countryDetail['shortdesc']!='') ? $countryDetail['shortdesc']:'' }}</textarea>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12 col-sm-12">
                                 <label for="description">Description</label>
-                                <input type="textarea" class="form-control" id="desc" name="desc" placeholder="description" autocomplete="off">
+                                <textarea class="form-control" id="froala-editor" name="desc" placeholder="description">{{ ($countryDetail['description']!='') ? $countryDetail['description']:'' }}</textarea>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save Country Data</button>

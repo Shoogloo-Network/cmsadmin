@@ -80,6 +80,8 @@ class FerryController extends Controller
             $bannerName = null;
             $topbannerName = null;
             $topmbannerName = null;
+            $ctt = 0;
+            $stt = 0;
 
             if ($request->hasFile('logo')) {
                 $request->validate([
@@ -122,7 +124,13 @@ class FerryController extends Controller
             }
 
             $count = Ferries::where('slug', trim($request->slug))->first();
-           
+
+            if($request->domain == 6000008){
+                $ctt = 1;
+            }elseif($request->domain == 6000010){    
+                $stt = 1;
+            }
+
             if($count){
                 $oId = $count->id;
             }else{
@@ -131,6 +139,8 @@ class FerryController extends Controller
                     'name' => $request->name,
                     'slug'=> $request->slug,
                     'popularorder'=>$request->order,
+                    'ctt'=>$ctt,
+                    'stt'=>$stt,
                 ]);
                 $pId = $ferry->id;
             }
@@ -269,6 +279,7 @@ class FerryController extends Controller
             'name' => $request->name,
             'slug' => $request->slug,
             'popularorder'=>$request->order,
+            
         ]);
 
         $ferryDetail->update([

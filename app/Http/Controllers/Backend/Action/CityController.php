@@ -150,7 +150,8 @@ class CityController extends Controller
             abort(403, 'Sorry !! You are Unauthorized to edit any admin !');
         }
 
-        $city = City::find($id)->cityDetail()->where('domain_id', '=', 6000008)->first();
+        $city = City::find($id)->with("cityDetail")->where('domain_id', 6000008)->firstOrFail();
+        dd($city);
         $roles = Role::all();
         return view('backend.pages.cities.edit', compact('city', 'roles'));
     }

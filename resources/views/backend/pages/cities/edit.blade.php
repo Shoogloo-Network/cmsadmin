@@ -109,9 +109,7 @@
                                     <input type="text" class="form-control" id="short_description" name="short_description"
                                         placeholder="Enter Short description">
                                 </div>
-
                             </div>
-
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-6">
                                     <label for="status">Assign Display Status</label>
@@ -120,21 +118,8 @@
                                         <option value="1">1</option>
                                         <option value="0">0</option>
                                     </select>
-                                    {{-- <select name="roles[]" id="roles" class="form-control select2" multiple>
-                                        @foreach ($roles as $role)
-                                            <option value="{{ $role->name }}"
-                                                {{ $city->city($city->name) ? 'selected' : '' }}>{{ $city->name }}
-                                            </option>
-                                        @endforeach
-                                    </select> --}}
                                 </div>
-                                {{-- <div class="form-group col-md-6 col-sm-6">
-                                    <label for="username">Admin Username</label>
-                                    <input type="text" class="form-control" id="username" name="username"
-                                        placeholder="Enter Username" required value="{{ $city->name }}">
-                                </div> --}}
                             </div>
-
                             <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save City Data</button>
                         </form>
                     </div>

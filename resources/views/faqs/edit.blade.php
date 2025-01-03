@@ -102,7 +102,7 @@ Faq Edit - Admin Panel
                             </div>                            
                             <div class="form-group col-md-12 col-sm-12">
                                 <label for="desc">Description</label>
-                                <input type="text" class="form-control" id="desc" name="desc" placeholder="Description" value="{{ $faqById['description'] }}">
+                                <textarea class="form-control" id="froala-editor" name="desc" placeholder="Description">{{ $faqById['description'] }}</textarea>
                             </div>                            
                         </div>                  
                         <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save Faq</button>

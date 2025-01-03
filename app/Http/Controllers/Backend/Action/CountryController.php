@@ -55,7 +55,7 @@ class CountryController extends Controller
     public function store(Request $request)
     {
         $countryExist = Country::where('slug', trim($request->slug))->first();
-
+        
         $countryId = null;
         if (!$countryExist) {
 

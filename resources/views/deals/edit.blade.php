@@ -96,15 +96,15 @@ Deal Edit - Admin Panel
                             <div class="form-group col-md-12 col-sm-12">
                                 <label for="name">Title</label>
                                 <input type="text" class="form-control" id="title" name="title" placeholder="Enter Title" value="{{ $dealById['title'] }}">
-                            </div>                            
-                            <div class="form-group col-md-12 col-sm-12">
-                                <label for="desc">Description</label>
-                                <input type="text" class="form-control" id="desc" name="desc" placeholder="Description" value="{{ $dealById['description'] }}">
                             </div>
                             <div class="form-group col-md-12 col-sm-12">
                                 <label for="name">Merchant Link</label>
                                 <input type="text" class="form-control" id="link" name="link" placeholder="Enter Merchant Link" value="{{ $dealById['dealurl'] }}">
-                            </div>                               
+                            </div>                              
+                            <div class="form-group col-md-12 col-sm-12">
+                                <label for="desc">Description</label>
+                                <textarea class="form-control" id="froala-editor" name="desc" placeholder="Description">{{ $dealById['description'] }}</textarea>
+                            </div>                             
                         </div>                  
                         <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save Deal</button>
                     </form>

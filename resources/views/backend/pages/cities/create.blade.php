@@ -98,11 +98,6 @@ Admin Create - Admin Panel
                             <div class="form-group col-md-6 col-sm-6">
                                 <label for="metakeyword">Meta Keyword</label>
                                 <input type="text" class="form-control" id="metakeyword" name="metakeyword" placeholder="meta keyword" autocomplete="off">
-                                {{--<select name="roles[]" id="roles" class="form-control select2" multiple>
-                                     @foreach ($roles as $role)
-                                        <option value="{{ $role->name }}">{{ $role->name }}</option>
-                                    @endforeach
-                                </select> --}}
                             </div>
                             <div class="form-group col-md-6 col-sm-6">
                                 <label for="metadescription">Meta Description</label>
@@ -112,13 +107,13 @@ Admin Create - Admin Panel
                         <div class="form-row">
                             <div class="form-group col-md-12 col-sm-12">
                                 <label for="shortdescription">Short Description</label>
-                                <input type="textarea" class="form-control" id="shortdesc" name="shortdesc" placeholder="short description" autocomplete="off">
+                                <textarea class="form-control" id="froala-editor" name="shortdesc" placeholder="short description"></textarea> 
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12 col-sm-12">
                                 <label for="description">Description</label>
-                                <input type="textarea" class="form-control" id="desc" name="desc" placeholder="description" autocomplete="off">
+                                <textarea class="form-control" id="froala-editor" name="desc" placeholder="description" autocomplete="off"></textarea> 
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save City</button>

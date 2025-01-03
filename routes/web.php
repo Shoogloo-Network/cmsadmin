@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\Action\CitymapController;
 use App\Http\Controllers\Backend\Action\DealsController;
+use App\Http\Controllers\Backend\Action\JourneyController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -16,7 +17,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 /**
  * Admin routes
  */
-Route::group(['prefix' => 'admin'], function () {
+    Route::group(['prefix' => 'admin'], function () {
     Route::get('/', 'Backend\DashboardController@index')->name('admin.dashboard');
     Route::resource('roles', 'Backend\RolesController', ['names' => 'admin.roles']);
     Route::resource('users', 'Backend\UsersController', ['names' => 'admin.users']);
@@ -30,6 +31,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('countries', 'Backend\Action\CountryController', ['names' => 'admin.countries']);
     Route::resource('ferries', 'Backend\Action\FerryController', ['names' => 'admin.ferries']);
     Route::resource('railcards', 'Backend\Action\RailcardController', ['names' => 'admin.railcards']);
+    Route::resource('items', 'Backend\Action\ItemController', ['names' => 'admin.items']);
     Route::get('/get-options/{id}', [DealsController::class, 'getPagesbyId'])->name('get.options');
 
     //Populars Routes mapping with city

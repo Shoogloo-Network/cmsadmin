@@ -90,9 +90,11 @@ Admin Create - Admin Panel
                                 <input type="number" class="form-control" id="order" name="order" placeholder="order" autocomplete="off">
                             </div>
                         </div>
-                        <div class="form-group col-md-12 col-sm-12">
-                                <label for="name">Merchant Link</label>
-                                <input type="text" class="form-control" id="link" name="link" placeholder="Enter Merchant Link">
+                        <div class="form-row">
+                            <div class="form-group col-md-12 col-sm-12">
+                                    <label for="name">Merchant Link</label>
+                                    <input type="text" class="form-control" id="link" name="link" placeholder="Enter Merchant Link">
+                            </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12 col-sm-12">
@@ -115,13 +117,13 @@ Admin Create - Admin Panel
                         <div class="form-row">
                             <div class="form-group col-md-12 col-sm-12">
                                 <label for="shortdescription">Short Description</label>
-                                <input type="textarea" class="form-control" id="shortdesc" name="shortdesc" placeholder="short description" autocomplete="off">
+                                <textarea class="form-control" id="froala-editor" name="shortdesc" placeholder="short description"></textarea>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12 col-sm-12">
                                 <label for="description">Description</label>
-                                <input type="textarea" class="form-control" id="desc" name="desc" placeholder="description" autocomplete="off">
+                                <textarea class="form-control" id="froala-editor" name="desc" placeholder="description"></textarea>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save Country</button>
@@ -136,10 +138,4 @@ Admin Create - Admin Panel
 @endsection
 
 @section('scripts')
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('.select2').select2();
-    })
-</script>
 @endsection

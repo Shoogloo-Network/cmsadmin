@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @include('backend.layouts.partials.styles')
     @yield('styles')
+    <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -37,6 +38,34 @@
     @include('backend.layouts.partials.offsets')
     @include('backend.layouts.partials.scripts')
     @yield('scripts')
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script>
+        new FroalaEditor('#froala-editor',{
+        toolbarButtons: [
+            'paragraphFormat', 'bold', 'italic', 'underline', 'strikeThrough', 
+            'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'insertLink', 
+            'insertImage', 'insertVideo', 'insertFile', 'insertTable', 'undo', 
+            'redo', 'clearFormatting', 'html', 'fullscreen', 'fontFamily', 'fontSize',
+            'color', 'lineHeight', 'insertHR', 'specialCharacters'
+        ],
+        paragraphFormat: {
+            N: 'Normal',
+            H1: 'Heading 1',
+            H2: 'Heading 2',
+            H3: 'Heading 3',
+            H4: 'Heading 4',
+            H5: 'Heading 5',
+            H6: 'Heading 6'
+        },
+        placeholderText: 'Type your text here...'
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        })
+    </script>
 </body>
 
 </html>

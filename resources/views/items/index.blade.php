@@ -21,10 +21,10 @@ Admins - Admin Panel
     <div class="row align-items-center">
         <div class="col-sm-6">
             <div class="breadcrumbs-area clearfix">
-                <h4 class="page-title pull-left">Routes</h4>
+                <h4 class="page-title pull-left">Items</h4>
                 <ul class="breadcrumbs pull-left">
                     <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li><span>All Routes</span></li>
+                    <li><span>All Items</span></li>
                 </ul>
             </div>
         </div>
@@ -41,10 +41,10 @@ Admins - Admin Panel
         <div class="col-12 mt-5">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="header-title float-left">Routes List</h4>
+                    <h4 class="header-title float-left">Items List</h4>
                     <p class="float-right mb-2">
-                        @if (Auth::guard('admin')->user()->can('route.create'))
-                            <a class="btn btn-primary text-white" href="{{ route('admin.routes.create') }}">Create New</a>
+                        @if (Auth::guard('admin')->user()->can('item.create'))
+                            <a class="btn btn-primary text-white" href="{{ route('admin.items.create') }}">Create New</a>
                         @endif
                     </p>
                     <div class="clearfix"></div>
@@ -54,30 +54,28 @@ Admins - Admin Panel
                             <thead class="bg-light text-capitalize">
                                 <tr>
                                     <th width="5%">Sl</th>
-                                    <th width="15%">Route</th>
-                                    <th width="15%">CTT</th>
-                                    <th width="15%">STT</th>
-                                    <th width="15%">Status</th>
-                                    <th width="15%">Action</th>
-                                    <th width="15%">Action</th>
+                                    <th width="15%">Title</th>
+                                    <th width="15%">Slug</th>
+                                    <th width="15%">Product</th>
+                                    <th width="15%">Subcategory</th>
+                                    <th width="10%">Admin</th>
+                                    <th width="10%">Publish</th>
+                                    <th width="10%">Action</th>
                                     <th width="5%"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach ($routes as $route)
+                            @foreach ($items as $item)
                                 <tr>
                                     <td>{{ $loop->index+1 }}</td>
-                                    <td>{{ $route->name }}</td>
-                                    <td>{{($route->ctt)?'On':'Off'}}</td>
-                                    <td>{{($route->stt)?'On':'Off'}}</td>
-                                    <td>{{$route->status}}</td>
-                                    @if($route->ctt)
-                                        <td><a class="btn btn-success text-white" href="{{ route('admin.routes.edit', ['id' => $route->id, 'domainId' => 6000008]) }}">Edit CTT</a></td>
-                                    @endif
-                                    @if($route->stt)
-                                        <td><a class="btn btn-success text-white" href="{{ route('admin.routes.edit', ['id' => $route->id, 'domainId' => 6000010]) }}">Edit STT</a></td>
-                                    @endif
-                                    <<td></td>
+                                    <td>{{ $item->title }}</td>
+                                    <td>{{ $item->slug }}</td>
+                                    <td>{{ $item->product_id }}</td>
+                                    <td>{{ $item->subcategory_id }}</td>
+                                    <td>{{ $item->admin_id }}</td>
+                                    <td>{{ $item->publish }}</td>
+                                    <td><a class="btn btn-success text-white" href="{{ route('admin.items.edit', $item->id) }}">Edit</a></td>
+                                    <td></td>
                                 </tr>
                                @endforeach
                             </tbody>

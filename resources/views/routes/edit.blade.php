@@ -47,7 +47,7 @@ Route Create - Admin Panel
                     <h4 class="header-title">Create New Route</h4>
                     @include('backend.layouts.partials.messages')
                     
-                    <form action="{{ route('admin.routes.update', $routeById->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.routes.update', $routeById->id, $routeDetailsById->domain_id) }}" method="POST" enctype="multipart/form-data">
                         @csrf <!-- CSRF token for security -->
                          @method('PUT') <!-- Use PUT or PATCH for updating resources -->
                         <div class="form-row">
@@ -61,8 +61,8 @@ Route Create - Admin Panel
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="status">Publish</label>
                                 <select name="status" id="status" class="form-control">
-                                    <option value="Yes" {{($routeDetailsById['status']==6000008)?'selected':'';}}>Yes</option>
-                                    <option value="No" {{($routeDetailsById['status']==6000010)?'selected':'';}}>No</option>                                    
+                                    <option value="Yes" {{($routeDetailsById['status']=='Yes')?'selected':'';}}>Yes</option>
+                                    <option value="No" {{($routeDetailsById['status']=='No')?'selected':'';}}>No</option>                                    
                                 </select>
                             </div>
                         </div>
@@ -112,11 +112,11 @@ Route Create - Admin Panel
                             </div>
                             <div class="form-group col-md-12 col-sm-12">
                                 <label for="email">Short Description</label>
-                                <input type="text" class="form-control" id="sdesc" name="sdesc" placeholder="Short Description" value="{{ $routeDetailsById['shortdesc'] }}">
+                                <textarea class="form-control" id="froala-editor" name="sdesc" placeholder="Short Description">{{ $routeDetailsById['shortdesc'] }}</textarea>
                             </div>
                             <div class="form-group col-md-12 col-sm-12">
                                 <label for="email">Description</label>
-                                <textarea class="form-control" id="content" name="desc" placeholder="Description">{{ $routeDetailsById['description'] }}</textarea>
+                                <textarea class="form-control" id="froala-editor" name="desc" placeholder="Description">{{ $routeDetailsById['description'] }}</textarea>
                             </div>                            
                         </div>                  
                         <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save Route</button>
@@ -131,24 +131,4 @@ Route Create - Admin Panel
 @endsection
 
 @section('scripts')
-<script src="https://cdn.tiny.cloud/1/p6zy0hiplrzpwksrt914cy00r2oqu21m1snfxhayqdhrif5m/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-<script>
-  tinymce.init({
-    selector: 'textarea',
-    plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
-    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-    tinycomments_mode: 'embedded',
-    tinycomments_author: 'Author name',
-    mergetags_list: [
-      { value: 'First.Name', title: 'First Name' },
-      { value: 'Email', title: 'Email' },
-    ],
-    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
-  });
-
-  $(document).ready(function() {
-    $('.select2').select2();
-  })
-</script>
 @endsection

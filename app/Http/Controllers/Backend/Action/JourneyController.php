@@ -70,12 +70,14 @@ class JourneyController extends Controller
             'sdesc' => 'nullable|string|max:255',
             'desc' => 'nullable|string',
         ]);        
-
+          
         DB::transaction(function () use ($request) {
 
             // Handle file uploads
             $logoName = null;
             $bannerName = null;
+            $ctt = 0;
+            $stt = 0;
 
             if ($request->hasFile('logo')) {
                 $request->validate([
@@ -96,15 +98,23 @@ class JourneyController extends Controller
                 // Move the file to the desired location within the public directory
                 $banner->move(public_path('assets/images/cttimg'), $bannerName);
             }
-
+            
             $count = Route::where('slug', trim($request->slug))->first();
-           
+
+            if($request->domain == 6000008){
+                $ctt = 1;
+            }elseif($request->domain == 6000010){    
+                $stt = 1;
+            }
+
             if($count){
                 $rId = $count->id;
             }else{
                 $route = Route::create([
                     'name' => $request->name,
                     'slug'=> $request->slug,
+                    'ctt'=>$ctt,
+                    'stt'=>$stt,
                 ]);
                 $rId = $route->id;
             }
@@ -139,14 +149,14 @@ class JourneyController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(int $Id)
+    public function edit(int $Id, int $DomainId)
     {
         if (is_null($this->user) || !$this->user->can('route.edit')) {
             abort(403, 'Sorry !! You are Unauthorized to edit any admin !');
         }
 
         $routeById = Route::find($Id);
-        $routeDetailsById = RouteDetail::where('route_id', $Id)->first();
+        $routeDetailsById = RouteDetail::where('route_id', $Id)->where('domain_id', $DomainId)->first();
         return view('routes.edit', compact('routeById','routeDetailsById'));
     }
 
