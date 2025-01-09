@@ -23,12 +23,12 @@ Admin Create - Admin Panel
     <div class="row align-items-center">
         <div class="col-sm-6">
             <div class="breadcrumbs-area clearfix">
-                <h4 class="page-title pull-left">Admin Create</h4>
-                <ul class="breadcrumbs pull-left">
+                <h4 class="page-title pull-left">Edit City Mapping</h4>
+                {{-- <ul class="breadcrumbs pull-left">
                     <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li><a href="{{ route('admin.cities.index') }}">All Cities</a></li>
-                    <li><span>Create City</span></li>
-                </ul>
+                    <li><a href="{{ route('admin.citymap.index') }}">City Mapping</a></li>
+                    <li><span>Create</span></li>
+                </ul> --}}
             </div>
         </div>
         <div class="col-sm-6 clearfix">
@@ -45,7 +45,7 @@ Admin Create - Admin Panel
             <div class="card">
                 <div class="card-body">
                     @include('backend.layouts.partials.messages')
-                    <form action="{{ route('admin.cities.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.citymap.update', $associatedRoutes[0]->id) }}" method="POST" name="popularroutemap" id="popularroutemap" enctype="multipart/form-data">
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
@@ -57,71 +57,81 @@ Admin Create - Admin Panel
                                 </select>
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="status">Publish</label>
-                                <select name="status" id="status" class="form-control">
-                                    <option value="Yes">Yes</option>
+                                <label for="topnavpage">Top Navbar Name</label>
+                                <select name="topnavpageid" id="topnavpageid" class="form-control">
+                                    <option value="{{ $associatedRoutes[0]->page_id }}" selected="selected">Cities</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4 col-sm-12">
+                                <label for="name">Sub Page Name where route will display</label>
+                                <select name="navsubpageid" id="navsubpageid" class="form-control">
+                                    @foreach ($cities as $city)
+                                    <option value="{{ $city->id }}"
+                                        {{( $city->id == $associatedRoutes[0]->subpage_id ) ? 'selected' : '' }}>
+                                        {{ $city->name }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-4 col-sm-12">
+                                <label for="name">Popular Train Routes to city page</label><i class="bi bi-arrow-down-square-fill"></i>
+                                <select name="trainrouteid[]" id="trainrouteid" class="form-control select2" multiple>
+                                    @foreach ($routes as $route)
+                                       <option value="{{ $route->id }}"
+                                        {{  in_array($route->id, $extingRouteIdAry) ? 'selected' : '' }}>
+                                        {{ $route->name }}
+                                    </option>
+                                   @endforeach
+                               </select>
+                            </div>
+                            <div class="form-group col-md-4 col-sm-12">
+                                <label for="name">Display</label>
+                                <select name="routestatus" id="routestatus" class="form-control">
+                                    <option @readonly(true) value="">--Select Status--</option>
+                                    <option value="Yes" selected="selected">Yes</option>
                                     <option value="No">No</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="name">Name</label>
-                                <input type="text" name="name" id="name" class="form-control" placeholder="city name" autocomplete="off">
+                                <label for="header">Popular train companies to city page</label>
+                                <select name="operatorid[]" id="operatorid" class="form-control select2" multiple>
+                                    @foreach ($operators as $operator)
+                                       <option value="{{ $operator->id }}">{{ $operator->name }}</option>
+                                    @endforeach
+                               </select>
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="metatitle">Slug</label>
-                                <input type="text" class="form-control" id="slug" name="slug" placeholder="slug" autocomplete="off">
+                                <label for="name">Display</label>
+                                <select name="operatorstatus" id="operatorstatus" class="form-control">
+                                    <option @readonly(true) value="">--Select Status--</option>
+                                    <option value="Yes" selected="selected">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="header">Page Header</label>
-                                <input type="text" class="form-control" id="header" name="header" placeholder="header" autocomplete="off">
-                            </div>
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="metatitle">Meta title</label>
-                                <input type="text" class="form-control" id="metatitle" name="metatitle" placeholder="metatitle" autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="banner">Big banner</label>
-                                <input type="text" class="form-control" id="banner" name="banner" placeholder="banner" autocomplete="off">
-                            </div>
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="smallbanner">Small Banner</label>
-                                <input type="text" class="form-control" id="smallbanner" name="smallbanner" placeholder="Small Banner" autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="form-row">
+
+                        {{-- <div class="form-row">
                             <div class="form-group col-md-6 col-sm-6">
                                 <label for="metakeyword">Meta Keyword</label>
                                 <input type="text" class="form-control" id="metakeyword" name="metakeyword" placeholder="meta keyword" autocomplete="off">
-                                {{--<select name="roles[]" id="roles" class="form-control select2" multiple>
+                                <select name="roles[]" id="roles" class="form-control select2" multiple>
                                      @foreach ($roles as $role)
                                         <option value="{{ $role->name }}">{{ $role->name }}</option>
                                     @endforeach
-                                </select> --}}
+                                </select>
                             </div>
                             <div class="form-group col-md-6 col-sm-6">
                                 <label for="metadescription">Meta Description</label>
                                 <input type="text" class="form-control" id="metadescription" name="metadescription" placeholder="meta description" required autocomplete="off">
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12 col-sm-12">
-                                <label for="shortdescription">Short Description</label>
-                                <input type="textarea" class="form-control" id="shortdesc" name="shortdesc" placeholder="short description" autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12 col-sm-12">
-                                <label for="description">Description</label>
-                                <input type="textarea" class="form-control" id="desc" name="desc" placeholder="description" autocomplete="off">
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save City</button>
+                        </div> --}}
+
+                        <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save Mapping</button>
                     </form>
                 </div>
             </div>

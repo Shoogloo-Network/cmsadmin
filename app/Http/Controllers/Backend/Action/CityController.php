@@ -53,6 +53,9 @@ class CityController extends Controller
      */
     public function store(Request $request)
     {
+if (is_null($this->user) || !$this->user->can('city.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any admin !');
+        }
         $request->validate([
             'domain' => 'required|string|max:255',
             'name' => 'nullable|string|max:255',

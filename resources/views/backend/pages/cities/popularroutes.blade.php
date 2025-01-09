@@ -55,7 +55,7 @@
                                     <tr>
                                         <th width="5%">Sl</th>
                                         <th width="10%">Navbar Main</th>
-                                        <th width="10%">Navbar Subpage</th>
+                                        <th width="10%">City Subpage</th>
                                         <th width="10%">Routes ID</th>
                                         <th width="10%">Routes Status</th>
                                         <th width="10%">Provider</th>
@@ -65,20 +65,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($cityPopulars as $admin)
+                                    @foreach ($populars as $populr)
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
-                                            <td>{{ $admin->page_id }}</td>
-                                            <td>{{ $admin->subpage_id }}</td>
-                                            <td>{{ $admin->trainroute_id}}</td>
-                                            <td>{{ $admin->route_status }}</td>
-                                            <td>{{ $admin->provider_id }}</td>
-                                            <td>{{ $admin->provider_status }}</td>
+                                            <td>{{ $populr->page_id }}</td>
+                                            <td>{{ $populr->cityname }}</td>
+                                            <td></td>
+                                            <td>{{ $populr->route_status }}</td>
+                                            <td></td>
+                                            <td></td>
                                             <td>
 
                                                 @if (Auth::guard('admin')->user()->can('citymap.edit'))
                                                     <a class="btn btn-success text-white"
-                                                        href="{{ route('admin.citymap.edit', $admin->id) }}">Edit</a>
+                                                        href="{{ route('admin.citymap.edit', [$populr->id, $populr->page_id,$populr->subpage_id]) }}">Edit</a>
                                                 @endif
 
                                                 @if (Auth::guard('admin')->user()->can('city.delete'))

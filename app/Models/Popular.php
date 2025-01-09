@@ -24,4 +24,23 @@ class Popular extends Model
         'provider_id',
         'provider_status',
     ];
+
+/**
+ * Find a popular mapping by its id (and optionally PageId).
+ *
+ * @return PopularDetailsById
+ */
+    public static function findById(int | string $id, ?int $page_id = null)
+    {
+        //$guardName = $guardName ?? Guard::getDefaultName(static::class);
+
+        //$popular = static::findByParam([(new static())->getKeyName() => $id, 'guard_name' => $guardName]);
+
+        // if (!$popular) {
+        //     return new static("There is no record available");
+        // }
+
+        //return $popular;
+    }
+
 }
