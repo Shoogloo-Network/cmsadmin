@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\Backend\Action\CitymapController;
 use App\Http\Controllers\Backend\Action\DealsController;
-use App\Http\Controllers\Backend\Action\JourneyController;
+use App\Http\Controllers\Backend\Action\OperatorController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -17,13 +18,16 @@ Route::get('/home', 'HomeController@index')->name('home');
 /**
  * Admin routes
  */
-    Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin'], function () {
     Route::get('/', 'Backend\DashboardController@index')->name('admin.dashboard');
     Route::resource('roles', 'Backend\RolesController', ['names' => 'admin.roles']);
     Route::resource('users', 'Backend\UsersController', ['names' => 'admin.users']);
     Route::resource('admins', 'Backend\AdminsController', ['names' => 'admin.admins']);
     Route::resource('routes', 'Backend\Action\JourneyController', ['names' => 'admin.routes']);
+
     Route::resource('operators', 'Backend\Action\OperatorController', ['names' => 'admin.operators']);
+    Route::name('admin.operators.edit.byDomainId')->get('operators/{operator}/edit/{domainid}', [OperatorController::class, 'editByDomainId']);
+
     Route::resource('providers', 'Backend\Action\ProviderController', ['names' => 'admin.providers']);
     Route::resource('deals', 'Backend\Action\DealsController', ['names' => 'admin.deals']);
     Route::resource('faqs', 'Backend\Action\FaqsController', ['names' => 'admin.faqs']);

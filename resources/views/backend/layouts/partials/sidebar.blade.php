@@ -6,7 +6,7 @@
     <div class="sidebar-header">
         <div class="logo">
             <a href="{{ route('admin.dashboard') }}">
-                <h2 class="text-white">Admin</h2>
+                <h2 class="text-white" style="font-size:18px;">Admin</h2>
             </a>
         </div>
     </div>
@@ -18,9 +18,9 @@
                     @if ($usr->can('dashboard.view'))
                     <li>
                         <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>dashboard</span></a>
-                        <ul class="collapse">
+                        {{-- <ul class="collapse">
                             <li class="{{ Route::is('admin.dashboard') ? 'active' : '' }}"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                        </ul>
+                        </ul> --}}
                     </li>
                     @endif
                     @if ($usr->can('city.create') || $usr->can('city.view') || $usr->can('city.edit') || $usr->can('citymap.view') || $usr->can('citymap.create'))

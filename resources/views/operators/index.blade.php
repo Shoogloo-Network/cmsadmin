@@ -21,7 +21,7 @@ Admins - Admin Panel
     <div class="row align-items-center">
         <div class="col-sm-6">
             <div class="breadcrumbs-area clearfix">
-                <h4 class="page-title pull-left">Routes</h4>
+                <h3 class="page-title pull-left">Routes</h3>
                 <ul class="breadcrumbs pull-left">
                     <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                     <li><span>All Routes</span></li>
@@ -38,7 +38,7 @@ Admins - Admin Panel
 <div class="main-content-inner">
     <div class="row">
         <!-- data table start -->
-        <div class="col-12 mt-5">
+        <div class="col-12 mt-2">
             <div class="card">
                 <div class="card-body">
                     <h4 class="header-title float-left">Routes List</h4>
@@ -53,12 +53,14 @@ Admins - Admin Panel
                         <table id="dataTable" class="text-center">
                             <thead class="bg-light text-capitalize">
                                 <tr>
-                                    <th width="5%">Sl</th>
-                                    <th width="20%">Route</th>
+                                    <th width="2%">Sl</th>
+                                    <th width="30%">Route</th>
                                     <th width="15%">CTT</th>
                                     <th width="15%">STT</th>
                                     <th width="15%">Status</th>
-                                    <th width="30%">Action</th>
+                                    <th width="10%">Ctt Action</th>
+                                    <th width="10%">Stt Action</th>
+                                    <th width="3%">&nbsp;</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -69,7 +71,9 @@ Admins - Admin Panel
                                     <td>{{($operator->ctt)?'On':'Off'}}</td>
                                     <td>{{($operator->stt)?'On':'Off'}}</td>
                                     <td>{{$operator->status}}</td>
-                                    <td><a class="btn btn-success text-white" href="{{ route('admin.operators.edit', $operator->id) }}">Edit</a></td>
+                                    <td><a class="btn btn-success text-white" href="{{ route('admin.operators.edit.byDomainId', ['operator' => $operator->id, 'domainid'=>6000008] )}}">Edit CTT</a></td>
+                                    <td><a class="btn btn-success text-white" href="{{ route('admin.operators.edit.byDomainId', ['operator' => $operator->id, 'domainid'=>6000010] )}}">Edit STT</a></td>
+                                    <td></td>
                                 </tr>
                                @endforeach
                             </tbody>
@@ -79,7 +83,7 @@ Admins - Admin Panel
             </div>
         </div>
         <!-- data table end -->
-        
+
     </div>
 </div>
 @endsection
@@ -92,7 +96,7 @@ Admins - Admin Panel
      <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
      <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
      <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
-     
+
      <script>
          /*================================
         datatable active
