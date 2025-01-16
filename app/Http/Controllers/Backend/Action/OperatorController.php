@@ -180,19 +180,6 @@ class OperatorController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    /* public function edit(int $Id, int $domainid)
-    {
-        if (is_null($this->user) || !$this->user->can('operator.edit')) {
-            abort(403, 'Sorry !! You are Unauthorized to edit any admin !');
-        }
-
-        $operatorById = Operator::find($Id);
-        $operatorDetailsById = OperatorDetail::where('operator_id', $Id)->first();
-        return view('operators.edit', compact('operatorById', 'operatorDetailsById'));
-    } */
 
     /**
      * Show the form for editing the specified resource.
@@ -204,7 +191,7 @@ class OperatorController extends Controller
         }
 
         $operatorById        = Operator::find($operator);
-        $operatorDetailsById = OperatorDetail::where('operator_id', $operator)->first();
+        $operatorDetailsById = OperatorDetail::where('operator_id', $operator)->where('domain_id', $domainid)->first();
         return view('operators.edit', compact('operatorById', 'operatorDetailsById'));
     }
 
@@ -214,7 +201,7 @@ class OperatorController extends Controller
     public function update(Request $request, $id)
     {
         $operator       = Operator::findOrFail($id); // Find the record by ID
-        $operatorDetail = OperatorDetail::where('operator_id', $operator->id)->firstOrFail();
+        $operatorDetail = OperatorDetail::where('operator_id', $operator->id)->where('domain_id', $request->domain)->firstOrFail();
 
                                                     // Handle file uploads
         $logoName        = $operatorDetail->logo;   // Existing logo name
@@ -309,7 +296,8 @@ class OperatorController extends Controller
             'metatitle'         => $request->mtitle,
             'metakeyword'       => $request->mkeyw,
             'metadescription'   => $request->mdesc,
-            'status'            => $request->status, 'topbanner_image' => $topbannerName,
+            'status'            => $request->status, 
+            'topbanner_image' => $topbannerName,
             'rightbanner_image' => $rightbannerName,
             'shortdesc'         => $request->sdesc,
             'rightbanner_code'  => $request->seating2,

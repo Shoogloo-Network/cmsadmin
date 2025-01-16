@@ -21,10 +21,10 @@ Admins - Admin Panel
     <div class="row align-items-center">
         <div class="col-sm-6">
             <div class="breadcrumbs-area clearfix">
-                <h3 class="page-title pull-left">Routes</h3>
+                <h3 class="page-title pull-left">Operators</h3>
                 <ul class="breadcrumbs pull-left">
                     <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li><span>All Routes</span></li>
+                    <li><span>All Operators</span></li>
                 </ul>
             </div>
         </div>
@@ -41,7 +41,7 @@ Admins - Admin Panel
         <div class="col-12 mt-2">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="header-title float-left">Routes List</h4>
+                    <h4 class="header-title float-left">Operators List</h4>
                     <p class="float-right mb-2">
                         @if (Auth::guard('admin')->user()->can('operator.create'))
                             <a class="btn btn-primary text-white" href="{{ route('admin.operators.create') }}">Create New</a>
@@ -54,7 +54,7 @@ Admins - Admin Panel
                             <thead class="bg-light text-capitalize">
                                 <tr>
                                     <th width="2%">Sl</th>
-                                    <th width="30%">Route</th>
+                                    <th width="30%">Operator</th>
                                     <th width="15%">CTT</th>
                                     <th width="15%">STT</th>
                                     <th width="15%">Status</th>
