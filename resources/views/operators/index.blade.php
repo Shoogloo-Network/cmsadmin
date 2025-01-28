@@ -71,8 +71,15 @@ Admins - Admin Panel
                                     <td>{{($operator->ctt)?'On':'Off'}}</td>
                                     <td>{{($operator->stt)?'On':'Off'}}</td>
                                     <td>{{$operator->status}}</td>
-                                    <td><a class="btn btn-success text-white" href="{{ route('admin.operators.edit.byDomainId', ['operator' => $operator->id, 'domainid'=>6000008] )}}">Edit CTT</a></td>
-                                    <td><a class="btn btn-success text-white" href="{{ route('admin.operators.edit.byDomainId', ['operator' => $operator->id, 'domainid'=>6000010] )}}">Edit STT</a></td>
+                                    <td> @if($operator->ctt)
+                                    <a class="btn btn-success text-white" href="{{ route('admin.operators.edit.byDomainId', ['operator' => $operator->id, 'domainid'=>6000008] )}}">Edit CTT</a>
+                                    @endif 
+                                    </td>                                    
+                                    <td>
+                                    @if($operator->stt)
+                                    <a class="btn btn-success text-white" href="{{ route('admin.operators.edit.byDomainId', ['operator' => $operator->id, 'domainid'=>6000010] )}}">Edit STT</a>
+                                    @endif 
+                                    </td>
                                     <td></td>
                                 </tr>
                                @endforeach

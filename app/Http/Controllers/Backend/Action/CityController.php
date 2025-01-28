@@ -153,8 +153,10 @@ if (is_null($this->user) || !$this->user->can('city.create')) {
             abort(403, 'Sorry !! You are Unauthorized to edit any admin !');
         }
 
-        $city = City::find($id)->with("cityDetail")->where('domain_id', 6000008)->firstOrFail();
-        dd($city);
+        $city = City::find($id)
+                    ->with(['cityDetail' => function($query) {
+            $query->where('domain_id', 6000008);
+        }])->firstOrFail();
         $roles = Role::all();
         return view('backend.pages.cities.edit', compact('city', 'roles'));
     }

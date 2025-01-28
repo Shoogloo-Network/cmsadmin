@@ -288,7 +288,6 @@ class OperatorController extends Controller
         ]);
 
         $operatorDetail->update([
-            'domain_id'         => $request->domain,
             'ota_type'          => $request->type,
             'banner'            => $bannerName,
             'logo'              => $logoName,

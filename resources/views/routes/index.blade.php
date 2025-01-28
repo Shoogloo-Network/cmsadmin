@@ -71,13 +71,17 @@ Admins - Admin Panel
                                     <td>{{($route->ctt)?'On':'Off'}}</td>
                                     <td>{{($route->stt)?'On':'Off'}}</td>
                                     <td>{{$route->status}}</td>
+                                    <td>
                                     @if($route->ctt)
-                                        <td><a class="btn btn-success text-white" href="{{ route('admin.routes.edit', ['id' => $route->id, 'domainId' => 6000008]) }}">Edit CTT</a></td>
+                                        <a class="btn btn-success text-white" href="{{ route('admin.routes.edit.byDomainId', ['route' => $route->id, 'domainid'=>6000008] )}}">Edit CTT</a>
                                     @endif
+                                    </td>
+                                    <td>
                                     @if($route->stt)
-                                        <td><a class="btn btn-success text-white" href="{{ route('admin.routes.edit', ['id' => $route->id, 'domainId' => 6000010]) }}">Edit STT</a></td>
+                                        <a class="btn btn-success text-white" href="{{ route('admin.routes.edit.byDomainId', ['route' => $route->id, 'domainid'=>6000010] )}}">Edit STT</a>
                                     @endif
-                                    <<td></td>
+                                    </td>
+                                   <td></td>
                                 </tr>
                                @endforeach
                             </tbody>

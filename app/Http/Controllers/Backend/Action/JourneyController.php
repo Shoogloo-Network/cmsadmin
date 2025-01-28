@@ -149,14 +149,14 @@ class JourneyController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(int $Id, int $DomainId)
+    public function editByDomainId(int $Id, int $domainid)
     {
         if (is_null($this->user) || !$this->user->can('route.edit')) {
             abort(403, 'Sorry !! You are Unauthorized to edit any admin !');
         }
 
         $routeById = Route::find($Id);
-        $routeDetailsById = RouteDetail::where('route_id', $Id)->where('domain_id', $DomainId)->first();
+        $routeDetailsById = RouteDetail::where('route_id', $Id)->where('domain_id', $domainid)->first();
         return view('routes.edit', compact('routeById','routeDetailsById'));
     }
 
@@ -166,7 +166,7 @@ class JourneyController extends Controller
     public function update(Request $request, $id)
     {
         $route = Route::findOrFail($id); // Find the record by ID
-        $routeDetail = RouteDetail::where('route_id',$route->id)->firstOrFail();;
+        $routeDetail = RouteDetail::where('route_id',$route->id)->where('domain_id', $request->domain)->firstOrFail();;
 
         // Handle file uploads
         $logoName = $routeDetail->logo;  // Existing logo name

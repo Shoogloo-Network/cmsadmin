@@ -1,8 +1,13 @@
 <?php
 
+use App\Http\Controllers\Backend\Action\CityController;
 use App\Http\Controllers\Backend\Action\CitymapController;
+use App\Http\Controllers\Backend\Action\CountryController;
 use App\Http\Controllers\Backend\Action\DealsController;
+use App\Http\Controllers\Backend\Action\FerryController;
+use App\Http\Controllers\Backend\Action\JourneyController;
 use App\Http\Controllers\Backend\Action\OperatorController;
+use App\Http\Controllers\Backend\Action\ProviderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -24,16 +29,22 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('users', 'Backend\UsersController', ['names' => 'admin.users']);
     Route::resource('admins', 'Backend\AdminsController', ['names' => 'admin.admins']);
     Route::resource('routes', 'Backend\Action\JourneyController', ['names' => 'admin.routes']);
+    Route::name('admin.routes.edit.byDomainId')->get('routes/{route}/edit/{domainid}', [JourneyController::class, 'editByDomainId']);
 
     Route::resource('operators', 'Backend\Action\OperatorController', ['names' => 'admin.operators']);
     Route::name('admin.operators.edit.byDomainId')->get('operators/{operator}/edit/{domainid}', [OperatorController::class, 'editByDomainId']);
 
     Route::resource('providers', 'Backend\Action\ProviderController', ['names' => 'admin.providers']);
+    Route::name('admin.providers.edit.byDomainId')->get('providers/{provider}/edit/{domainid}', [ProviderController::class, 'editByDomainId']);
     Route::resource('deals', 'Backend\Action\DealsController', ['names' => 'admin.deals']);
     Route::resource('faqs', 'Backend\Action\FaqsController', ['names' => 'admin.faqs']);
     Route::resource('cities', 'Backend\Action\CityController', ['names' => 'admin.cities']);
+    Route::name('admin.cities.edit.byDomainId')->get('cities/{city}/edit/{domainid}', [CityController::class, 'editByDomainId']);
     Route::resource('countries', 'Backend\Action\CountryController', ['names' => 'admin.countries']);
+    Route::name('admin.countries.edit.byDomainId')->get('countries/{country}/edit/{domainid}', [CountryController::class, 'editByDomainId']);
+
     Route::resource('ferries', 'Backend\Action\FerryController', ['names' => 'admin.ferries']);
+    Route::name('admin.ferries.edit.byDomainId')->get('ferries/{ferry}/edit/{domainid}', [FerryController::class, 'editByDomainId']);
     Route::resource('railcards', 'Backend\Action\RailcardController', ['names' => 'admin.railcards']);
     Route::resource('items', 'Backend\Action\ItemController', ['names' => 'admin.items']);
     Route::get('/get-options/{id}', [DealsController::class, 'getPagesbyId'])->name('get.options');

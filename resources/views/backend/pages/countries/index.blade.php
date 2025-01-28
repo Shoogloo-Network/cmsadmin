@@ -72,7 +72,7 @@
 
                                                 @if (Auth::guard('admin')->user()->can('country.edit'))
                                                     <a class="btn btn-success text-white"
-                                                        href="{{ route('admin.countries.edit', $admin->id) }}">Edit</a>
+                                                        href="{{ route('admin.countries.edit.byDomainId', ['country' => $admin->id, 'domainid'=>6000008]) }}">Edit</a>
                                                 @endif
 
                                                 @if (Auth::guard('admin')->user()->can('country.delete'))

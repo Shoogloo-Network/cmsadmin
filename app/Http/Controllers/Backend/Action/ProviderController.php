@@ -172,14 +172,14 @@ class ProviderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(int $Id)
+    public function editByDomainId(int $Id, int $domainid)
     {
         if (is_null($this->user) || !$this->user->can('provider.edit')) {
             abort(403, 'Sorry !! You are Unauthorized to edit any admin !');
         }
 
         $providerById = Provider::find($Id);
-        $providerDetailsById = ProviderDetail::where('provider_id', $Id)->first();
+        $providerDetailsById = ProviderDetail::where('provider_id', $Id)->where('domain_id', $domainid)->first();
         return view('providers.edit', compact('providerById','providerDetailsById'));
     }
 
@@ -189,7 +189,7 @@ class ProviderController extends Controller
     public function update(Request $request, $id)
     {
         $provider = Provider::findOrFail($id); // Find the record by ID
-        $providerDetail = ProviderDetail::where('provider_id',$provider->id)->firstOrFail();;
+        $providerDetail = ProviderDetail::where('provider_id',$provider->id)->where('domain_id', $request->domain)->firstOrFail();;
 
         // Handle file uploads
         $logoName = $providerDetail->logo;  // Existing logo name
@@ -261,7 +261,6 @@ class ProviderController extends Controller
         ]);
 
         $providerDetail->update([
-            'domain_id' => $request->domain,
             'banner' => $bannerName,
             'logo' => $logoName,
             'description'=> $request->desc,

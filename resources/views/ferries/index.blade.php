@@ -58,7 +58,8 @@ Admins - Admin Panel
                                     <th width="15%">CTT</th>
                                     <th width="15%">STT</th>
                                     <th width="15%">Status</th>
-                                    <th width="30%">Action</th>
+                                    <th width="15%">Action</th>
+                                    <th width="15%">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -69,7 +70,12 @@ Admins - Admin Panel
                                     <td>{{($ferry->ctt)?'On':'Off'}}</td>
                                     <td>{{($ferry->stt)?'On':'Off'}}</td>
                                     <td>{{$ferry->status}}</td>
-                                    <td><a class="btn btn-success text-white" href="{{ route('admin.ferries.edit', $ferry->id) }}">Edit</a></td>
+                                    @if($ferry->ctt)
+                                    <td><a class="btn btn-success text-white" href="{{ route('admin.ferries.edit.byDomainId', ['ferry' => $ferry->id, 'domainid'=>6000008] )}}">Edit</a></td>
+                                    @endif
+                                    @if($ferry->stt)
+                                    <td><a class="btn btn-success text-white" href="{{ route('admin.ferries.edit.byDomainId', ['ferry' => $ferry->id, 'domainid'=>6000010] )}}">Edit</a></td>
+                                    @endif
                                 </tr>
                                @endforeach
                             </tbody>

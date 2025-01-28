@@ -147,13 +147,13 @@ class CountryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function editByDomainId(string $id, int $domainid)
     {
         if (is_null($this->user) || !$this->user->can('country.edit')) {
             abort(403, 'Sorry !! You are Unauthorized to edit any admin !');
         }
         $country = Country::find($id);        
-        $countryDetail = $country->countryDetail()->where('domain_id', '=', 6000008)->first();
+        $countryDetail = $country->countryDetail()->where('domain_id', $domainid)->first();
         $roles = Role::all();
         return view('backend.pages.countries.edit', compact('country',  'countryDetail', 'roles'));
     }

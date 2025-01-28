@@ -53,13 +53,14 @@ Admins - Admin Panel
                         <table id="dataTable" class="text-center">
                             <thead class="bg-light text-capitalize">
                                 <tr>
-                                    <th width="5%">Sl</th>
-                                    <th width="20%">Provider</th>
-                                    <th width="20%">Type</th>
-                                    <th width="15%">CTT</th>
-                                    <th width="15%">STT</th>
+                                    <th width="4%">Sl</th>
+                                    <th width="30%">Provider</th>
+                                    <th width="15%">Type</th>
+                                    <th width="10%">CTT</th>
+                                    <th width="10%">STT</th>
                                     <th width="15%">Status</th>
-                                    <th width="30%">Action</th>
+                                    <th width="15%">Action</th>
+                                    <th width="1%">&nbsp;</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -71,7 +72,9 @@ Admins - Admin Panel
                                     <td>{{($provider->ctt)?'On':'Off'}}</td>
                                     <td>{{($provider->stt)?'On':'Off'}}</td>
                                     <td>{{$provider->status}}</td>
-                                    <td><a class="btn btn-success text-white" href="{{ route('admin.providers.edit', $provider->id) }}">Edit</a></td>
+                                    <td><a class="btn btn-success text-white" href="{{ route('admin.providers.edit.byDomainId', ['provider' => $provider->id, 'domainid'=>6000008] )}}">Edit CTT</a></td>
+                                    <!--<td><a class="btn btn-success text-white" href="{{ route('admin.providers.edit.byDomainId', ['provider' => $provider->id, 'domainid'=>6000010] )}}">Edit STT</a></td>-->
+                                    <td></td>
                                 </tr>
                                @endforeach
                             </tbody>

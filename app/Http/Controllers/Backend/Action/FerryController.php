@@ -176,14 +176,14 @@ class FerryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(int $Id)
+    public function editByDomainId(int $Id, int $domainid)
     {
         if (is_null($this->user) || !$this->user->can('ferry.edit')) {
             abort(403, 'Sorry !! You are Unauthorized to edit any admin !');
         }
 
         $ferryById = Ferries::find($Id);
-        $ferryDetailsById = FerryDetail::where('ferry_id', $Id)->first();
+        $ferryDetailsById = FerryDetail::where('ferry_id', $Id)->where('domain_id', $domainid)->first();
         return view('ferries.edit', compact('ferryById','ferryDetailsById'));
     }
 
@@ -193,7 +193,7 @@ class FerryController extends Controller
     public function update(Request $request, $id)
     {
         $ferry = Ferries::findOrFail($id); // Find the record by ID
-        $ferryDetail = FerryDetail::where('ferry_id',$ferry->id)->firstOrFail();;
+        $ferryDetail = FerryDetail::where('ferry_id',$ferry->id)->where('domain_id', $request->domain)->firstOrFail();;
 
         // Handle file uploads
         $logoName = $ferryDetail->logo;  // Existing logo name
@@ -284,7 +284,6 @@ class FerryController extends Controller
 
         $ferryDetail->update([
             'ferry_id'=>$id,
-            'domain_id' => $request->domain,
             'herobanner' => $topbannerName,
             'banner' => $bannerName,
             'logo' => $logoName,

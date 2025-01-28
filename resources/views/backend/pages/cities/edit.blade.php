@@ -74,7 +74,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-12">
                                     <label for="password">Header</label>
-                                    <input type="text" class="form-control" id="header" name="header"
+                                    <input type="text" class="form-control" id="header" value="{{ $city->header }}" name="header"
                                         placeholder="Enter Header">
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12">
