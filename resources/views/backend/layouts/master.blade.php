@@ -58,7 +58,7 @@
             H5: 'Heading 5',
             H6: 'Heading 6'
         },
-        placeholderText: 'Type your text here...'
+        placeholderText: 'Type your text here'
         });
     </script>
     <script>
