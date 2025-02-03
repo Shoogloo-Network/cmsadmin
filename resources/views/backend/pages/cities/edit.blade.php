@@ -43,85 +43,88 @@
                     <div class="card-body">
                         <h4 class="header-title">Edit City - {{ $city->name }}</h4>
                         @include('backend.layouts.partials.messages')
-
                         <form action="{{ route('admin.cities.update', $city->id) }}" method="POST">
                             @method('PUT')
                             @csrf
                             <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <label for="name">Name</label>
-                                    <input type="text" class="form-control" id="name" name="name"
-                                        placeholder="Enter Name" value="{{ $city->name }}">
-                                </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <label for="email">Slug</label>
-                                    <input type="text" class="form-control" id="slug" name="slug"
-                                        placeholder="Enter Slug" value="{{ $city->slug }}">
-                                </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="name">Domain</label>
+                                <select name="domain" id="domain" class="form-control">
+                                <option value="">Select Domain</option>
+                                    <option value="6000008" {{($cityDetail->domain_id==6000008)?'selected':'';}}>Cheaptraintickets.co.uk</option>
+                                    <option value="6000010" {{($cityDetail->domain_id==6000010)?'selected':'';}}>Splittraintickets.net</option>
+                                </select>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <label for="password">Banner</label>
-                                    <input type="text" class="form-control" id="banner" name="banner"
-                                        placeholder="Enter Banner">
-                                </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <label for="password_confirmation">Small Banner</label>
-                                    <input type="text" class="form-control" id="small_banner"
-                                        name="small_banner" placeholder="Enter small banner">
-                                </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="status">Publish</label>
+                                <select name="status" id="status" class="form-control">
+                                    <option value="Yes" {{($cityDetail->status=='Yes')?'selected':'';}}>Yes</option>
+                                    <option value="No"  {{($cityDetail->status=='No')?'selected':'';}}>No</option>
+                                </select>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <label for="password">Header</label>
-                                    <input type="text" class="form-control" id="header" value="{{ $city->header }}" name="header"
-                                        placeholder="Enter Header">
-                                </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <label for="password_confirmation">Mearchant Link</label>
-                                    <input type="text" class="form-control" id="mearchant_link"
-                                        name="mearchant_link" placeholder="Mearchant Link">
-                                </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="name">Name</label>
+                                <input type="text" name="name" id="name" class="form-control" placeholder="city name" autocomplete="off" value="{{$city->name}}">
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <label for="password">Meta Title</label>
-                                    <input type="text" class="form-control" id="metatitle" name="metatitle"
-                                        placeholder="Enter Metatitle">
-                                </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <label for="password_confirmation">Meta Keyword</label>
-                                    <input type="text" class="form-control" id="metakeyword"
-                                        name="password_confirmation" placeholder="Enter metakeyword">
-                                </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="slug">Slug</label>
+                                <input type="text" class="form-control" id="slug" name="slug" placeholder="slug" autocomplete="off" value="{{$city->slug}}">
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-12 col-sm-12">
-                                    <label for="password">Meta Description</label>
-                                    <input type="text" class="form-control" id="meta_description" name="meta_description"
-                                        placeholder="Enter Meta description">
-                                </div>
-
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="header">Page Header</label>
+                                <input type="text" class="form-control" id="header" name="header" placeholder="header" autocomplete="off" value="{{$cityDetail->header}}">
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-12 col-sm-12">
-                                    <label for="password">Short Description</label>
-                                    <input type="text" class="form-control" id="short_description" name="short_description"
-                                        placeholder="Enter Short description">
-                                </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="marchant_link">Merchant Link</label>
+                                <input type="text" class="form-control" id="merchant_link" name="merchant_link" placeholder="merchant link" autocomplete="off" value="{{$cityDetail->merchant_link}}">
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-6">
-                                    <label for="status">Assign Display Status</label>
-                                    <select name="status" id="status" class="form-control select2" single>
-                                        <option selected="selected">Assign Display Status</option>
-                                        <option value="1">1</option>
-                                        <option value="0">0</option>
-                                    </select>
-                                </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="banner">Big banner</label>
+                                <input type="text" class="form-control" id="banner" name="banner" placeholder="banner" autocomplete="off">
                             </div>
-                            <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save City Data</button>
-                        </form>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="smallbanner">Small Banner</label>
+                                <input type="text" class="form-control" id="smallbanner" name="smallbanner" placeholder="Small Banner" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12 col-sm-12">
+                                <label for="metatitle">Meta title</label>
+                                <input type="text" class="form-control" id="metatitle" name="metatitle" placeholder="metatitle" autocomplete="off" value="{{$cityDetail->metatitle}}">
+                            </div>  
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12 col-sm-12">
+                                <label for="metakeyword">Meta Keyword</label>
+                                <input type="text" class="form-control" id="metakeyword" name="metakeyword" placeholder="meta keyword" autocomplete="off" value="{{$cityDetail->metakeyword}}">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12 col-sm-12">
+                                <label for="metadescription">Meta Description</label>
+                                <input type="text" class="form-control" id="metadescription" name="metadescription" placeholder="meta description" required autocomplete="off" value="{{$cityDetail->metadescription}}">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12 col-sm-12">
+                                <label for="shortdescription">Short Description</label>
+                                <textarea class="form-control" id="froala-editor" name="shortdesc" placeholder="short description">{{$cityDetail->shortdesc}}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12 col-sm-12">
+                                <label for="description">Description</label>
+                                <textarea class="form-control" id="froala-editor" name="description" placeholder="description">{{$cityDetail->description}}</textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save City</button>
+                    </form>
                     </div>
                 </div>
             </div>

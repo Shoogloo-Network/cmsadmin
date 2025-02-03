@@ -52,7 +52,7 @@ class OperatorController extends Controller
      */
     public function store(Request $request)
     {
-
+        dd($request);
         // Validate the request
         $request->validate([
             'domain'      => 'required|integer',
@@ -74,6 +74,7 @@ class OperatorController extends Controller
             'seating1'    => 'nullable|string',
             'seating2'    => 'nullable|string',
             'seating3'    => 'nullable|string',
+            'customHtml'  => 'nullable|string',
         ]);
 
         DB::transaction(function () use ($request) {
@@ -146,7 +147,7 @@ class OperatorController extends Controller
                 ]);
                 $oId = $operator->id;
             }
-
+           
             OperatorDetail::create([
                 'operator_id'       => $oId,
                 'domain_id'         => $request->domain,
@@ -165,7 +166,7 @@ class OperatorController extends Controller
                 'search_right'      => $request->seating3,
                 'merchant_link'     => $request->link,
                 'merchant_details'  => $request->seating1,
-
+                'customHtml'        => $request->customHtml,
             ]);
         });
 
@@ -286,7 +287,7 @@ class OperatorController extends Controller
             'name' => $request->input('name'),
             'slug' => $request->input('slug'),
         ]);
-
+        
         $operatorDetail->update([
             'ota_type'          => $request->type,
             'banner'            => $bannerName,
@@ -296,13 +297,14 @@ class OperatorController extends Controller
             'metakeyword'       => $request->mkeyw,
             'metadescription'   => $request->mdesc,
             'status'            => $request->status, 
-            'topbanner_image' => $topbannerName,
+            'topbanner_image'   => $topbannerName,
             'rightbanner_image' => $rightbannerName,
             'shortdesc'         => $request->sdesc,
             'rightbanner_code'  => $request->seating2,
             'search_right'      => $request->seating3,
             'merchant_link'     => $request->link,
             'merchant_details'  => $request->seating1,
+            'customHtml'        => $request->customHtml,
         ]);
 
         // Redirect or return response

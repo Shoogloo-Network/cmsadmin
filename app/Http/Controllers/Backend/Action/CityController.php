@@ -61,15 +61,15 @@ if (is_null($this->user) || !$this->user->can('city.create')) {
             'name' => 'nullable|string|max:255',
             'status' => 'required|string|in:Yes,No',
             'slug' => 'required|string|max:255',
-            //'banner' => 'required|string',
-            //'smallbanner' => 'required|string',
+            'banner' => 'required|string',
+            'smallbanner' => 'required|string',
             'header' => 'required|string',
             'metatitle' => 'nullable|string',
             'metakeyword' => 'nullable|string',
             'metadescription' => 'nullable|string',
             'shortdesc' => 'required|string',
             'desc' => 'nullable|string',
-            //'merchant_link'   => 'nullable|string',
+            'merchant_link'   => 'nullable|string',
             //'rightbanner_code' => 'nullable|string',
             //'train_companies_id' => 'nullable|string',
             //'attractions_id' => 'nullable|string',
@@ -81,14 +81,22 @@ if (is_null($this->user) || !$this->user->can('city.create')) {
             })->first();
 
         $cityId = null;
+        $ctt = 0;
+        $stt = 0;
         if (!$cityExist) {
-
+            if($request->domain == 6000008){
+                $ctt = 1;
+            }elseif($request->domain == 6000010){    
+                $stt = 1;
+            }
             $city = new City();
             $city = City::create([
                 'country_id' => '29',
                 'name' => $request->name,
                 'popularorder' => '0',
                 'slug' => $request->slug,
+                'ctt'=>$ctt,
+                'stt'=>$stt,
             ]);
             $city->save();
             $cityId = $city->id;
@@ -147,18 +155,20 @@ if (is_null($this->user) || !$this->user->can('city.create')) {
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
+    public function editByDomainId(string $id, int $domainid)
+{
         if (is_null($this->user) || !$this->user->can('city.edit')) {
             abort(403, 'Sorry !! You are Unauthorized to edit any admin !');
         }
 
-        $city = City::find($id)
-                    ->with(['cityDetail' => function($query) {
-            $query->where('domain_id', 6000008);
-        }])->firstOrFail();
+        $city = City::with(['cityDetail' => function($query) use ($domainid) {
+            $query->where('domain_id', $domainid);
+        }])->findOrFail($id);
+
+        $cityDetail = $city->cityDetail->first();
         $roles = Role::all();
-        return view('backend.pages.cities.edit', compact('city', 'roles'));
+
+        return view('backend.pages.cities.edit', compact('city', 'cityDetail', 'roles'));
     }
 
 
@@ -166,45 +176,49 @@ if (is_null($this->user) || !$this->user->can('city.create')) {
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
-        if (is_null($this->user) || !$this->user->can('admin.edit')) {
-            abort(403, 'Sorry !! You are Unauthorized to edit any admin !');
-        }
-
-        dd($request->all());
-
-        // TODO: You can delete this in your local. This is for heroku publish.
-        // This is only for Super Admin role,
-        // so that no-one could delete or disable it by somehow.
-        if ($id === 1) {
-            session()->flash('error', 'Sorry !! You are not authorized to update this Admin as this is the Super Admin. Please create new one if you need to test !');
-            return back();
-        }
-
-        // Create New Admin
-        $city = City::find($id);
-
-        // Validation Data
+    {       
         $request->validate([
-            'name' => 'required|max:50',
-            'email' => 'required|max:100|email|unique:admins,email,' . $id,
-            'password' => 'nullable|min:6|confirmed',
+            'domain' => 'required|string|max:255',
+            'name' => 'nullable|string|max:255',
+            'status' => 'required|string|in:Yes,No',
+            'slug' => 'required|string|max:255',
+            'banner' => 'nullable|string',
+            'smallbanner' => 'nullable|string',
+            'header' => 'required|string',
+            'metatitle' => 'nullable|string',
+            'metakeyword' => 'nullable|string',
+            'metadescription' => 'nullable|string',
+            'shortdesc' => 'required|string',
+            'description' => 'nullable|string',
+            'merchant_link'   => 'nullable|string',
         ]);
 
+        $domainid = $request->domain;
+        // Create New Admin
+        $city = City::with(['cityDetail' => function($query) use ($domainid) {
+            $query->where('domain_id', $domainid);
+        }])->findOrFail($id);
+    
         $city->name = $request->name;
-        $city->email = $request->email;
-        $city->username = $request->username;
-        // if ($request->password) {
-        //     $city->password = Hash::make($request->password);
-        // }
+        $city->slug = $request->slug;
+        
         $city->save();
+
+        $cityDetail = $city->cityDetail->first();
+    
+        if ($cityDetail) {
+            $cityDetail->update($request->all());
+        } else {
+            // Handle the case where cityDetail is not found
+            return redirect()->back()->withErrors(['cityDetail' => 'City detail not found for the given domain ID.']);
+        }        
 
         $city->roles()->detach();
         if ($request->roles) {
             $city->assignRole($request->roles);
         }
 
-        session()->flash('success', 'Admin has been updated !!');
+        session()->flash('success', 'City has been updated !!');
         return back();
     }
 

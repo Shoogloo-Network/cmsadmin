@@ -83,8 +83,12 @@
                                             <td>
 
                                                 @if (Auth::guard('admin')->user()->can('city.edit'))
-                                                    <a class="btn btn-success text-white"
-                                                        href="{{ route('admin.cities.edit', $admin->id) }}">Edit</a>
+                                                    @if($admin->ctt)
+                                                        <a class="btn btn-success text-white" href="{{ route('admin.cities.edit.byDomainId', ['city' => $admin->id, 'domainid'=>6000008] )}}">Edit CTT</a>
+                                                    @endif                     
+                                                    @if($admin->stt)
+                                                        <a class="btn btn-success text-white" href="{{ route('admin.cities.edit.byDomainId', ['city' => $admin->id, 'domainid'=>6000010] )}}">Edit STT</a>
+                                                    @endif
                                                 @endif
 
                                                 @if (Auth::guard('admin')->user()->can('city.delete'))

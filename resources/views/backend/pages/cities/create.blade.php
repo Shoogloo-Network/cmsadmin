@@ -70,7 +70,7 @@ Admin Create - Admin Panel
                                 <input type="text" name="name" id="name" class="form-control" placeholder="city name" autocomplete="off">
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="metatitle">Slug</label>
+                                <label for="slug">Slug</label>
                                 <input type="text" class="form-control" id="slug" name="slug" placeholder="slug" autocomplete="off">
                             </div>
                         </div>
@@ -80,8 +80,8 @@ Admin Create - Admin Panel
                                 <input type="text" class="form-control" id="header" name="header" placeholder="header" autocomplete="off">
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="metatitle">Meta title</label>
-                                <input type="text" class="form-control" id="metatitle" name="metatitle" placeholder="metatitle" autocomplete="off">
+                                <label for="marchant_link">Merchant Link</label>
+                                <input type="text" class="form-control" id="merchant_link" name="merchant_link" placeholder="merchant link" autocomplete="off">
                             </div>
                         </div>
                         <div class="form-row">
@@ -95,11 +95,19 @@ Admin Create - Admin Panel
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-6">
+                            <div class="form-group col-md-12 col-sm-12">
+                                <label for="metatitle">Meta title</label>
+                                <input type="text" class="form-control" id="metatitle" name="metatitle" placeholder="metatitle" autocomplete="off">
+                            </div>  
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12 col-sm-12">
                                 <label for="metakeyword">Meta Keyword</label>
                                 <input type="text" class="form-control" id="metakeyword" name="metakeyword" placeholder="meta keyword" autocomplete="off">
                             </div>
-                            <div class="form-group col-md-6 col-sm-6">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12 col-sm-12">
                                 <label for="metadescription">Meta Description</label>
                                 <input type="text" class="form-control" id="metadescription" name="metadescription" placeholder="meta description" required autocomplete="off">
                             </div>
@@ -107,13 +115,13 @@ Admin Create - Admin Panel
                         <div class="form-row">
                             <div class="form-group col-md-12 col-sm-12">
                                 <label for="shortdescription">Short Description</label>
-                                <textarea class="form-control" id="froala-editor" name="shortdesc" placeholder="short description"></textarea> 
+                                <textarea class="form-control" id="froala-editor" name="shortdesc" placeholder="short description"></textarea>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12 col-sm-12">
                                 <label for="description">Description</label>
-                                <textarea class="form-control" id="froala-editor" name="desc" placeholder="description" autocomplete="off"></textarea> 
+                                <textarea class="form-control" id="froala-editor" name="desc" placeholder="description"></textarea>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save City</button>
