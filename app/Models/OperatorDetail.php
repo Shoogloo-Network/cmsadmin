@@ -29,7 +29,7 @@ class OperatorDetail extends Model
         'search_right',
         'merchant_link',
         'merchant_details',
-        'customHtml',
+        'customhtml',
     ];
 
 }

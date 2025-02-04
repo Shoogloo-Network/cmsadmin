@@ -163,7 +163,7 @@ Operator Edit - Admin Panel
                         </div>    
                         <div class="form-group col-md-12 col-sm-12">
                             <label for="customHtml">Custom HTML</label>
-                            <textarea class="form-control" id="froala-editor" name="customHtml" placeholder="Custom Html">{{ $operatorDetailsById['customHtml'] }}</textarea>
+                            <textarea class="form-control" id="froala-editor" name="customhtml" placeholder="Custom Html">{{ $operatorDetailsById['customhtml'] }}</textarea>
                         </div>              
                         <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save Operator</button>
                     </form>
