@@ -30,6 +30,7 @@ class OperatorDetail extends Model
         'merchant_link',
         'merchant_details',
         'customhtml',
+        'seating4',
     ];
 
 }

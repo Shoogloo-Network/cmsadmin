@@ -75,6 +75,7 @@ class OperatorController extends Controller
             'seating2'    => 'nullable|string',
             'seating3'    => 'nullable|string',
             'customhtml'  => 'nullable|string',
+            'seating4'    => 'nullable|string',
         ]);
 
         DB::transaction(function () use ($request) {
@@ -166,7 +167,8 @@ class OperatorController extends Controller
                 'search_right'      => $request->seating3,
                 'merchant_link'     => $request->link,
                 'merchant_details'  => $request->seating1,
-                'customhtml'        => $request->customhtml,
+                'customhtml'        => $request->customhtml,                
+                'seating4'        => $request->seating4,
             ]);
         });
 
@@ -305,6 +307,7 @@ class OperatorController extends Controller
             'merchant_link'     => $request->link,
             'merchant_details'  => $request->seating1,
             'customhtml'        => $request->customhtml,
+            'seating4'        => $request->seating4,
         ]);
 
         // Redirect or return response

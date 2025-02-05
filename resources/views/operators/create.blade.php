@@ -154,6 +154,10 @@ Operator Create - Admin Panel
                                 <textarea class="form-control" id="froala-editor" name="seating3" placeholder="Description"></textarea>
                             </div>   
                             <div class="form-group col-md-12 col-sm-12">
+                                <label for="email">Seating Plan IV</label>
+                                <textarea class="form-control" id="froala-editor" name="seating4" placeholder="Description"></textarea>
+                            </div>  
+                            <div class="form-group col-md-12 col-sm-12">
                                 <label for="customHtml">Custom HTML</label>
                                 <textarea class="form-control" id="froala-editor" name="customhtml" placeholder="Custom Html"></textarea>
                             </div>  

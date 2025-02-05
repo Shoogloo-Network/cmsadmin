@@ -160,7 +160,11 @@ Operator Edit - Admin Panel
                         <div class="form-group col-md-12 col-sm-12">
                             <label for="email">Seating Plan III</label>
                             <textarea class="form-control" id="froala-editor" name="seating3" placeholder="Description">{{ $operatorDetailsById['search_right'] }}</textarea>
-                        </div>    
+                        </div> 
+                        <div class="form-group col-md-12 col-sm-12">
+                            <label for="email">Seating Plan IV</label>
+                            <textarea class="form-control" id="froala-editor" name="seating4" placeholder="Description">{{ $operatorDetailsById['seating4'] }}</textarea>
+                        </div>  
                         <div class="form-group col-md-12 col-sm-12">
                             <label for="customHtml">Custom HTML</label>
                             <textarea class="form-control" id="froala-editor" name="customhtml" placeholder="Custom Html">{{ $operatorDetailsById['customhtml'] }}</textarea>
