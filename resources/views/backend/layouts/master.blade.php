@@ -38,28 +38,16 @@
     @include('backend.layouts.partials.offsets')
     @include('backend.layouts.partials.scripts')
     @yield('scripts')
-    <script type="text/javascript" src="{{asset('backend/assets/js/froala/froala_editor.pkgd.min.js')}}"></script>
+    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <!-- Add this script in your Blade template (e.g., resources/views/layouts/app.blade.php) -->
     <script>
-        new FroalaEditor('#froala-editor',{
-        toolbarButtons: [
-            'paragraphFormat', 'bold', 'italic', 'underline', 'strikeThrough', 
-            'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'insertLink', 
-            'insertImage', 'insertVideo', 'insertFile', 'insertTable', 'undo', 
-            'redo', 'clearFormatting', 'html', 'fullscreen', 'fontFamily', 'fontSize',
-            'color', 'lineHeight', 'insertHR', 'specialCharacters'
-        ],
-        paragraphFormat: {
-            N: 'Normal',
-            H1: 'Heading 1',
-            H2: 'Heading 2',
-            H3: 'Heading 3',
-            H4: 'Heading 4',
-            H5: 'Heading 5',
-            H6: 'Heading 6'
-        },
-        placeholderText: 'Type your text here'
+    document.addEventListener("DOMContentLoaded", function() {
+        // Initialize CKEditor for all textareas
+        document.querySelectorAll('textarea').forEach(function(textarea) {
+        CKEDITOR.replace(textarea);
         });
+    });
     </script>
     <script>
         $(document).ready(function() {
