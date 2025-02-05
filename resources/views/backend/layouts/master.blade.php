@@ -38,7 +38,7 @@
     @include('backend.layouts.partials.offsets')
     @include('backend.layouts.partials.scripts')
     @yield('scripts')
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"></script>
+    <script type="text/javascript" src="{{asset('backend/assets/js/froala/froala_editor.pkgd.min.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <script>
         new FroalaEditor('#froala-editor',{
