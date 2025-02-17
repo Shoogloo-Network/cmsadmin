@@ -86,11 +86,11 @@
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="banner">Big banner</label>
-                                <input type="text" class="form-control" id="banner" name="banner" placeholder="banner" autocomplete="off">
+                                <input type="text" class="form-control" id="banner" name="banner" placeholder="banner" autocomplete="off" value="{{$cityDetail->banner}}">
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="smallbanner">Small Banner</label>
-                                <input type="text" class="form-control" id="smallbanner" name="smallbanner" placeholder="Small Banner" autocomplete="off">
+                                <input type="text" class="form-control" id="smallbanner" name="smallbanner" placeholder="Small Banner" autocomplete="off" value="{{$cityDetail->smallbanner}}">
                             </div>
                         </div>
                         <div class="form-row">
