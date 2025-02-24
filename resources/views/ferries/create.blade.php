@@ -2,7 +2,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-Provider Create - Admin Panel
+Ferry Create - Admin Panel
 @endsection
 
 @section('styles')
@@ -26,8 +26,8 @@ Provider Create - Admin Panel
                 <h4 class="page-title pull-left">Provider Create</h4>
                 <ul class="breadcrumbs pull-left">
                     <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li><a href="{{ route('admin.routes.index') }}">All Providers</a></li>
-                    <li><span>Create Provider</span></li>
+                    <li><a href="{{ route('admin.routes.index') }}">All Ferries</a></li>
+                    <li><span>Create Ferry</span></li>
                 </ul>
             </div>
         </div>
@@ -44,7 +44,7 @@ Provider Create - Admin Panel
         <div class="col-12 mt-5">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="header-title">Create New Provider</h4>
+                    <h4 class="header-title">Create New Ferry</h4>
                     @include('backend.layouts.partials.messages')
                     
                     <form action="{{ route('admin.ferries.store') }}" method="POST" enctype="multipart/form-data">
@@ -131,7 +131,7 @@ Provider Create - Admin Panel
                                 <textarea class="form-control" id="froala-editor" name="desc" placeholder="Description"></textarea>
                             </div>  
                         </div>                  
-                        <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save Provider</button>
+                        <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save Ferry</button>
                     </form>
                 </div>
             </div>

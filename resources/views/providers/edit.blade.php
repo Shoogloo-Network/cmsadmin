@@ -70,8 +70,8 @@ Provider Edit - Admin Panel
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="type">Type</label>
                                 <select name="type" id="type" class="form-control">
-                                    <option value="rail" {{($providerDetailsById['type']=='rail')?'selected':'';}}>Rail</option>                                    
-                                    <option value="bus" {{($providerDetailsById['type']=='bus')?'selected':'';}}>Bus</option>
+                                    <option value="rail" {{($providerById['type']=='rail')?'selected':'';}}>Rail</option>                                    
+                                    <option value="bus" {{($providerById['type']=='bus')?'selected':'';}}>Bus</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-6 col-sm-12">

@@ -2,7 +2,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-Admins - Admin Panel
+Ferries - Admin Panel
 @endsection
 
 @section('styles')
@@ -24,7 +24,7 @@ Admins - Admin Panel
                 <h4 class="page-title pull-left">Ferries</h4>
                 <ul class="breadcrumbs pull-left">
                     <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li><span>All ferries</span></li>
+                    <li><span>All Ferries</span></li>
                 </ul>
             </div>
         </div>
@@ -41,7 +41,7 @@ Admins - Admin Panel
         <div class="col-12 mt-5">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="header-title float-left">ferries List</h4>
+                    <h4 class="header-title float-left">Ferries List</h4>
                     <p class="float-right mb-2">
                         @if (Auth::guard('admin')->user()->can('ferry.create'))
                             <a class="btn btn-primary text-white" href="{{ route('admin.ferries.create') }}">Create New</a>
